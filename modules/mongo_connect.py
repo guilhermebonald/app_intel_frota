@@ -21,3 +21,11 @@ class db_management:
         car.insert_one(
             {"frota": frota, "placa": placa}
         )
+
+    def edit_data(self, frota=int, placa=str):
+        car.update_many(
+            {"frota": 56},
+            {'$set': {"frota": 58}}
+        )
+
+db_management().edit_data()
