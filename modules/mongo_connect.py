@@ -27,5 +27,3 @@ class db_management:
             {"frota": 56},
             {'$set': {"frota": 58}}
         )
-
-db_management().edit_data()
