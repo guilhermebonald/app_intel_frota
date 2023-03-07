@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Intel App</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+
+<body>
+    <!-- Nav Bar -->
+    <div class="nav-bg">
+        <nav class="nav-bar">Intel App</nav>
+    </div>
+
+    <!-- Main Title-->
+    <h1 class="hello">Intel Page</h1>
+
+    <!-- Table -->
+    <table class="main-table">
+        <thead>
+            <tr>
+                <th>Frota</th>
+                <th>Placa</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in items %}
+            <tr>
+                <td>{{i.frota}}</td>
+                <td>{{i.placa}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Imput e Botão para adicionar item a lista -->
+    <!-- url_for('add') acessa a rota(URL) atraves da função -->
+    <form method="POST" action="{{ url_for('add') }}">
+        <input type="text" name="frota" placeholder="Frota">
+        <input type="text" name="placa" placeholder="Placa">
+        <button type="submit" class="add button">Adicionar</button>
+    </form>
+</body>
+
+</html>
