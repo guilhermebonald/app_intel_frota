@@ -29,7 +29,8 @@
             <tr>
                 <td>{{i.frota}}</td>
                 <td>{{i.placa}}</td>
-                <td><button onclick="">Editar</button></td>
+                <td><a href="{{ url_for('edit', id=i.id) }}">Editar</a></td>
+                <td><a href="">Excluir</a></td>
             </tr>
             {% endfor %}
         </tbody>

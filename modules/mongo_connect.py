@@ -12,19 +12,26 @@ class db_management:
         pass
 
     def get_data(self):
-        cars = []
+        data = []
         for i in car.find():
-            cars.append(i)
-        return cars
+           parse = {}
+           parse["id"] = str(i["_id"])
+           parse["frota"] = int(i["frota"])
+           parse["placa"] = str(i["placa"])
+           data.append(parse)
+        return data
 
     def add_to_db(self, frota=int, placa=str):
         car.insert_one(
             {"frota": frota, "placa": placa}
         )
 
-    def edit_data(self, frota=int, placa=str):
-        # ? começar pegando get_data no front para localizar edit
+    def edit_data(self, frota=int):
         car.update_many(
-            {"frota": 56},
+            {"frota": frota},
             {'$set': {"frota": 58}}
         )
+
+
+for i in db_management().get_data():
+    print(i)

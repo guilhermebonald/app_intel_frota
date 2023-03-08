@@ -26,6 +26,12 @@ def add():
     return redirect(url_for("home_page"))
 
 
+# POST to edit item in list
+@app.route("/edit/<id>", methods=["GET", "POST"])
+def update(_id):
+    item = _id
+    pass
+
 # Main execute
 if __name__ == "__main__":
     app.run(debug=True)
