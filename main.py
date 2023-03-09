@@ -27,10 +27,14 @@ def add():
 
 
 # POST to edit item in list
-@app.route("/edit/<id>", methods=["GET", "POST"])
-def update(_id):
-    item = _id
+@app.route("/editar/<id>", methods=["GET", "POST"])
+def update(id):
     pass
+
+@app.route("/deletar/<id>", methods=["GET", "POST"])
+def delete(id):
+    mongo_connect.db_management().delete_data(id)
+    return redirect(url_for('home_page'))
 
 # Main execute
 if __name__ == "__main__":

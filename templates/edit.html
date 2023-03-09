@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editar item</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+
+<body>
+    <h1>Editar item</h1>
+    <form method="POST" action="{{ url_for('editar', id=item._id) }}">
+        <input type="text" name="frota" placeholder="Frota" value="{{ item.frota }}">
+        <input type="text" name="placa" placeholder="Placa" value="{{ item.placa }}">
+        <button type="submit" class="button">Salvar</button>
+    </form>
+</body>
+
+</html>

@@ -29,8 +29,8 @@
             <tr>
                 <td>{{i.frota}}</td>
                 <td>{{i.placa}}</td>
-                <td><a href="{{ url_for('edit', id=i.id) }}">Editar</a></td>
-                <td><a href="">Excluir</a></td>
+                <td><a href="{{ url_for('update', id=i._id) }}">Editar</a></td>
+                <td><a href="{{ url_for('delete', id=i._id) }}">Excluir</a></td>
             </tr>
             {% endfor %}
         </tbody>

@@ -14,11 +14,12 @@ class db_management:
     def get_data(self):
         data = []
         for i in car.find():
-           parse = {}
-           parse["id"] = str(i["_id"])
-           parse["frota"] = int(i["frota"])
-           parse["placa"] = str(i["placa"])
-           data.append(parse)
+        #    parse = {}
+        #    parse["id"] = str(i["_id"])
+        #    parse["frota"] = int(i["frota"])
+        #    parse["placa"] = str(i["placa"])
+        #    data.append(parse)
+            data.append(i)
         return data
 
     def add_to_db(self, frota=int, placa=str):
@@ -26,12 +27,12 @@ class db_management:
             {"frota": frota, "placa": placa}
         )
 
-    def edit_data(self, frota=int):
-        car.update_many(
-            {"frota": frota},
-            {'$set': {"frota": 58}}
+    def edit_data(self, _id=str):
+        car.find(
+            {"_id": _id}
         )
 
-
-for i in db_management().get_data():
-    print(i)
+    def delete_data(self, id):
+        car.delete_one(
+            {"_id": id}
+        )
