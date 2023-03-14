@@ -31,6 +31,7 @@ def add():
 # POST to edit item in list
 @app.route("/editar/<id>", methods=["GET", "POST"])
 def update(id):
+    # ! Essa função precisa ser otimizada.
     # Get specific car data.
     item_id = mongo_connect.db_management().get_by_id(str(id))
 
@@ -40,17 +41,21 @@ def update(id):
         placa = request.form['update_placa'].upper()
 
         # item_id (dict) update data.
+        temp_one = item_id['frota']
+        temp_two = item_id['placa']
         item_id['frota'] = int(frota)
         item_id['placa'] = placa
 
         # Set update in DB
-        mongo_connect.db_management().update_data(id)
+        mongo_connect.db_management().update_data(
+            temp_one, item_id['frota'], temp_two, item_id['placa'])
 
         # Redirect to page
         return redirect(url_for("home_page"))
 
     # Return to update form
     return render_template("update.html", item=item_id)
+
 
 @app.route("/deletar/<id>", methods=["GET", "POST"])
 def delete(id):

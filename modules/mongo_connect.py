@@ -28,23 +28,20 @@ class db_management:
             {"frota": frota, "placa": placa}
         )
 
-    def update_data(self, frota=int, placa=str):
+    def update_data(self, frota1=int, frota2=int, placa1=str, placa2=str):
         # Frota Value Update
         car.update_one(
-            {"frota": 65},
-            {"$set": {"frota": 76}}
+            {"frota": frota1},
+            {"$set": {"frota": frota2}}
         )
 
         # Placa Value Update
         car.update_one(
-            {"placa": "GBB-6423"},
-            {"$set": {"placa": "YGH-8324"}},
+            {"placa": placa1},
+            {"$set": {"placa": placa2}},
         )
 
     def delete_data(self, id=str):
         car.delete_one(
             {"_id": ObjectId(id)}
         )
-
-
-db_management().update_data()
