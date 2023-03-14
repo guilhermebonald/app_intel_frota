@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 
 # HomePage Route
+# TODO> HOME
 @app.route("/")
 def home_page():
     # return list with data from DataBase
@@ -14,6 +15,7 @@ def home_page():
 
 
 # POST to add item in list
+# TODO> ADD
 @app.route("/add_item", methods=["POST"])
 def add():
     # get input from form with name.
@@ -28,35 +30,41 @@ def add():
     return redirect(url_for("home_page"))
 
 
-# POST to edit item in list
+# POST to update item in list / GET to access update page.
+# TODO> UPDATE
 @app.route("/editar/<id>", methods=["GET", "POST"])
 def update(id):
-    # ! Essa função precisa ser otimizada.
     # Get specific car data.
     item_id = mongo_connect.db_management().get_by_id(str(id))
 
+    # This is accessed from update page
     if request.method == "POST":
         # Get Form Data.
-        frota = request.form['update_frota']
-        placa = request.form['update_placa'].upper()
+        form_frota = request.form['form_frota']
+        form_plate = request.form['form_placa'].upper()
 
-        # item_id (dict) update data.
-        temp_one = item_id['frota']
-        temp_two = item_id['placa']
-        item_id['frota'] = int(frota)
-        item_id['placa'] = placa
+        # get old data.
+        old_frota = item_id['frota']
+        old_plate = item_id['placa']
+
+        # get new data
+        new_frota = int(form_frota)
+        new_plate = form_plate
 
         # Set update in DB
         mongo_connect.db_management().update_data(
-            temp_one, item_id['frota'], temp_two, item_id['placa'])
+            old_frota, new_frota, old_plate, new_plate)
 
         # Redirect to page
         return redirect(url_for("home_page"))
 
-    # Return to update form
-    return render_template("update.html", item=item_id)
+    # This is accessed from home page
+    elif request.method == "GET":
+        # Return to update form
+        return render_template("update.html", item=item_id)
 
 
+# TODO> DELETE
 @app.route("/deletar/<id>", methods=["GET", "POST"])
 def delete(id):
     mongo_connect.db_management().delete_data(id)
