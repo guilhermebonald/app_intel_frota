@@ -9,40 +9,52 @@
 
 <body>
     <!-- Nav Bar -->
-    <div class="nav-bg">
-        <nav class="nav-bar">Intel App</nav>
-    </div>
+    <nav class="nav-bar">Intel App</nav>
 
     <!-- Main Title-->
-    <h1 class="hello">Intel Page</h1>
+    <h1 class="hello"></h1>
 
     <!-- Table -->
-    <table class="main-table">
-        <thead>
-            <tr>
-                <th>Frota</th>
-                <th>Placa</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for i in items %}
-            <tr>
-                <td>{{i.frota}}</td>
-                <td>{{i.placa}}</td>
-                <td><a href="{{ url_for('update', id=i._id) }}">Editar</a></td>
-                <td><a href="{{ url_for('delete', id=i._id) }}">Excluir</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="table div">
+        <table class="main-table">
+            <thead>
+                <tr>
+                    <th>Frota</th>
+                    <th>Placa</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in items %}
+                <tr>
+                    <td>{{i.frota}}</td>
+                    <td>{{i.placa}}</td>
+                    <!-- Update Button -->
+                    <td>
+                        <form action="{{ url_for('update', id=i._id) }}">
+                            <button type="submit" class="edit button">Editar</button>
+                        </form>
+                    </td>
+                    <!-- Delete button -->
+                    <td>
+                        <form action="{{ url_for('delete', id=i._id) }}">
+                            <button type="submit" class="delete button">Deletar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <!-- Imput e Botão para adicionar item a lista -->
     <!-- url_for('add') acessa a rota(URL) atraves da função -->
-    <form method="POST" action="{{ url_for('add') }}">
-        <input type="text" name="frota" placeholder="Frota">
-        <input type="text" name="placa" placeholder="Placa">
-        <button type="submit" class="action button">Adicionar</button>
-    </form>
+    <div class="my form">
+        <form method="POST" action="{{ url_for('add') }}">
+            <input type="text" name="frota" placeholder="Frota">
+            <input type="text" name="placa" placeholder="Placa">
+            <button type="submit" class="action button">Adicionar</button>
+        </form>
+    </div>
 </body>
 
 </html>

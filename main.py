@@ -21,10 +21,15 @@ def add():
     # get input from form with name.
     frota = request.form['frota']
     placa = request.form['placa'].upper()
+    # format placa value
+    if "-" in placa: 
+        f_placa = placa
+    else:
+        f_placa = placa[:3] + "-" + placa[3:]
 
     # append data from input in list.
     add = mongo_connect.db_management()
-    add.add_to_db(frota=int(frota), placa=str(placa))
+    add.add_to_db(frota=int(frota), placa=str(f_placa))
 
     # returning to "home_page" after to add itens in table with the list.
     return redirect(url_for("home_page"))
