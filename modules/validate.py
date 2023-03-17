@@ -1,12 +1,11 @@
-from wtforms import Form, BooleanField, StringField, PasswordField, validators
+from wtforms import Form, StringField, PasswordField, validators, SubmitField
+
 
 class to_validate:
-    def __init__(self):
-        pass
-
-    def plate_validate(Form):
-        plate = StringField("Placa", [validators.data_required()])
-        
+    def add_validate(Form):
+        frota = StringField("Frota", [validators.DataRequired()])
+        plate = StringField(
+            "Placa", [validators.DataRequired(), validators.Length(max=7, min=6)])
 
     def frota_validate(Form):
         pass

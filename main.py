@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from modules import mongo_connect
+from modules import mongo_connect, validate
 
 # Instance of Flask App
 app = Flask(__name__)
@@ -18,22 +18,26 @@ def home_page():
 # TODO> ADD
 @app.route("/add_item", methods=["POST"])
 def add():
+    form = validate.to_validate().add_validate(request.form)
     # get input from form with name.
-    frota = request.form['frota']
-    placa = request.form['placa'].upper()
-    # format placa value
-    if "-" in placa: 
-        f_placa = placa
+    # IF HTTP = POST
+    if form.validate():
+        frota = form.frota.data # request.form['frota'] > before
+        placa = form.placa.data.upper() # request.form['placa'].upper() > before
+        # format placa value
+        if "-" in placa: 
+            f_placa = placa
+        else:
+            f_placa = placa[:3] + "-" + placa[3:]
+
+        # append data from input in list.
+        add = mongo_connect.db_management()
+        add.add_to_db(frota=int(frota), placa=str(f_placa))
+
+        # returning to "home_page" after to add itens in table with the list.
+        return redirect(url_for("home_page"))
     else:
-        f_placa = placa[:3] + "-" + placa[3:]
-
-    # append data from input in list.
-    add = mongo_connect.db_management()
-    add.add_to_db(frota=int(frota), placa=str(f_placa))
-
-    # returning to "home_page" after to add itens in table with the list.
-    return redirect(url_for("home_page"))
-
+        return render_template("add.html", form=form)
 
 # POST to update item in list / GET to access update page.
 # TODO> UPDATE

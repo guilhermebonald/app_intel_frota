@@ -1,0 +1,13 @@
+{% extends "home.html" %}
+
+{% block content %}
+    <h1>Adicionar Item</h1>
+    <form method="POST" action="{{ url_for('add') }}">
+        {{ form.hidden_tag() }}
+        {{ form.frota.label }}
+        {{ form.frota }}
+        {{ form.placa.label }}
+        {{ form.placa }}
+        {{ form.submit }}
+    </form>
+{% endblock %}
