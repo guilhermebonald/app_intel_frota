@@ -1,11 +1,10 @@
 from wtforms import Form, StringField, PasswordField, validators, SubmitField
 
+""" Form as a parameter indicating this class "add_validate"
+is a subclass of "Form", so 'add_validate' inherits (herda)
+the attributes for class 'Form'"""
 
-class to_validate:
-    def add_validate(Form):
-        frota = StringField("Frota", [validators.DataRequired()])
-        plate = StringField(
-            "Placa", [validators.DataRequired(), validators.Length(max=7, min=6)])
-
-    def frota_validate(Form):
-        pass
+class add_validate(Form): #Form(formdata=request.form[is dict])
+    frota = StringField("Frota", [validators.DataRequired()])
+    plate = StringField(
+        "Placa", [validators.DataRequired(), validators.Length(max=7, min=6)])

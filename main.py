@@ -18,21 +18,17 @@ def home_page():
 # TODO> ADD
 @app.route("/add_item", methods=["POST"])
 def add():
-    form = validate.to_validate().add_validate(request.form)
+    # class "Form" receive "formdata(dict)=request.form(dict)"
+    form = validate.add_validate(request.form)
     # get input from form with name.
     # IF HTTP = POST
     if form.validate():
         frota = form.frota.data # request.form['frota'] > before
         placa = form.placa.data.upper() # request.form['placa'].upper() > before
-        # format placa value
-        if "-" in placa: 
-            f_placa = placa
-        else:
-            f_placa = placa[:3] + "-" + placa[3:]
 
         # append data from input in list.
         add = mongo_connect.db_management()
-        add.add_to_db(frota=int(frota), placa=str(f_placa))
+        add.add_to_db(frota=int(frota), placa=str(placa))
 
         # returning to "home_page" after to add itens in table with the list.
         return redirect(url_for("home_page"))
