@@ -9,3 +9,4 @@ class add_validate(Form):  # Form(formdata=request.form[is dict])
     frota = StringField("Frota", [validators.DataRequired()])
     plate = StringField(
         "Placa", [validators.DataRequired()])
+    btn = SubmitField('Adicionar')

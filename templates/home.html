@@ -49,10 +49,13 @@
     <!-- Imput e Botão para adicionar item a lista -->
     <!-- url_for('add') acessa a rota(URL) atraves da função -->
     <div class="my form">
-        <form method="POST" action="{{ url_for('add') }}">
-            <input type="text" name="frota" placeholder="Frota">
-            <input type="text" name="placa" placeholder="Placa">
-            <button type="submit" class="action button">Adicionar</button>
+        <form method="POST" action="{{ url_for('add_item') }}">
+            {{ form.frota.label }} {{ form.frota }}
+            {{ form.plate.label }} {{ form.plate }}
+            {{ form.btn }}
+            <!-- <input type="text" name="frota" placeholder="Frota">
+            <input type="text" name="placa" placeholder="Placa"> -->
+            <!-- <button type="submit" class="action button">Adicionar</button> -->
         </form>
     </div>
 </body>

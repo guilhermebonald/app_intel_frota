@@ -1,39 +1,45 @@
 from flask import Flask, render_template, request, redirect, url_for
 from modules import mongo_connect, validate
+import os
+
+secret_key = os.urandom(32)
 
 # Instance of Flask App
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = secret_key
 
 # HomePage Route
 # TODO> HOME
 @app.route("/")
 def home_page():
+    form = validate.add_validate()
     # return list with data from DataBase
     data = mongo_connect.db_management().get_data()
-    return render_template("home.html", items=data)
+    return render_template("home.html", items=data, form=form)
 
 
 # POST to add item in list
 # TODO> ADD
 @app.route("/add_item", methods=["POST"])
-def add():
+def add_item():
     # class "Form" receive "formdata(dict)=request.form(dict)"
     form = validate.add_validate(request.form)
     # get input from form with name.
     # IF HTTP = POST
-    if form.validate():
+    if request.method == 'POST' and form.validate():
         frota = form.frota.data # request.form['frota'] > before
-        placa = form.placa.data.upper() # request.form['placa'].upper() > before
+        plate = form.plate.data.upper() # request.form['placa'].upper() > before
 
+        print(frota, plate)
         # append data from input in list.
         add = mongo_connect.db_management()
-        add.add_to_db(frota=int(frota), placa=str(placa))
+        add.add_to_db(frota=int(frota), placa=str(plate))
 
         # returning to "home_page" after to add itens in table with the list.
         return redirect(url_for("home_page"))
     else:
-        return render_template("add.html", form=form)
+        print("NÃO")
+        return redirect(url_for("home_page"))
 
 # POST to update item in list / GET to access update page.
 # TODO> UPDATE
