@@ -50,6 +50,7 @@
     <!-- url_for('add') acessa a rota(URL) atraves da função -->
     <div class="my form">
         <form method="POST" action="{{ url_for('add_item') }}">
+            {{ form.csrf_token }}
             {{ form.frota.label }} {{ form.frota }}
             {{ form.plate.label }} {{ form.plate }}
             {{ form.btn }}
