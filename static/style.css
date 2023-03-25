@@ -43,7 +43,8 @@ input {
     margin: 5px;
 }
 
-th, td {
+th,
+td {
     padding: 5px;
     text-align: center;
     vertical-align: top;
@@ -122,4 +123,9 @@ input[type="text"]:focus {
     outline: none;
     border-color: #4CAF50;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.errors {
+    size: 200px;
+    background-color: #DF2E38;
 }

@@ -10,15 +10,17 @@ secret_key = os.urandom(24)
 # Instance of Flask App
 
 # TODO> The Initial Function.
+
+
 def create_app():
     app = Flask(__name__)
     app.secret_key = secret_key
-    # To set this "csrf.init_app(app)" is necessary to add all the code inside 
+    # To set this "csrf.init_app(app)" is necessary to add all the code inside
     # to this function "create_app()".
     csrf.init_app(app)
 
     # HomePage Route
-    # TODO> HOME
+    # * HOME
     @app.route("/")
     def home_page():
         form = validations.AddValidate()
@@ -27,8 +29,7 @@ def create_app():
         return render_template("home.html", items=data, form=form)
 
     # POST to add item in list
-    # TODO> ADD
-
+    # * ADD
     @app.route("/add_item", methods=["POST"])
     def add_item():
         # class "Form" receive "formdata(dict)=request.form(dict)"
@@ -36,9 +37,10 @@ def create_app():
         # get input from form with name.
         # IF HTTP = POST
         if request.method == 'POST' and form.validate_on_submit():
-            frota = form.frota.data  # request.form['frota'] > before
-            # request.form['placa'].upper() > before
+            frota = form.frota.data
             plate = form.plate.data.upper()
+            if len(plate) == 7:
+                plate = plate[:3] + '-' + plate[3:]
 
             print(frota, plate)
             # append data from input in list.
@@ -48,11 +50,10 @@ def create_app():
             # returning to "home_page" after to add itens in table with the list.
             return redirect(url_for("home_page"))
         else:
-            print(form.errors)
             return redirect(url_for("home_page"))
 
     # POST to update item in list / GET to access update page.
-    # TODO> UPDATE
+    # * UPDATE
     @app.route("/editar/<id>", methods=["GET", "POST"])
     def update(id):
         # Get specific car data.
@@ -84,8 +85,7 @@ def create_app():
             # Return to update form
             return render_template("update.html", item=item_id)
 
-    # TODO> DELETE
-
+    # * DELETE
     @app.route("/deletar/<id>", methods=["GET", "POST"])
     def delete(id):
         mongo_connect.db_management().delete_data(id)
