@@ -31,13 +31,15 @@
                     <!-- Update Button -->
                     <td>
                         <form action="{{ url_for('update', id=i._id) }}">
-                            <button type="submit" class="edit button">Editar</button>
+                            {{ form.csrf_token }}
+                            {{ form.edit_btn(class_="edit-btn") }}
                         </form>
                     </td>
                     <!-- Delete button -->
                     <td>
                         <form action="{{ url_for('delete', id=i._id) }}">
-                            <button type="submit" class="delete button">Deletar</button>
+                            {{ form.csrf_token }}
+                            {{ form.delete_btn(class_="delete-btn") }}
                         </form>
                     </td>
                 </tr>
@@ -53,7 +55,7 @@
             {{ form.csrf_token }}
             {{ form.frota.label }} {{ form.frota }}
             {{ form.plate.label }} {{ form.plate }}
-            {{ form.btn }}
+            {{ form.add_btn(class_="add-btn") }}
         </form>
     </div>
 </body>

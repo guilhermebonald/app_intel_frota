@@ -9,9 +9,7 @@ secret_key = os.urandom(24)
 
 # Instance of Flask App
 
-# TODO> The Initial Function.
-
-
+# * The Initial Function.
 def create_app():
     app = Flask(__name__)
     app.secret_key = secret_key
@@ -25,7 +23,7 @@ def create_app():
     def home_page():
         form = validations.AddValidate()
         # return list with data from DataBase
-        data = mongo_connect.db_management().get_data()
+        data = mongo_connect.Db_Management().get_data()
         return render_template("home.html", items=data, form=form)
 
     # POST to add item in list
@@ -41,10 +39,9 @@ def create_app():
             plate = form.plate.data.upper()
             if len(plate) == 7:
                 plate = plate[:3] + '-' + plate[3:]
-
-            print(frota, plate)
+            
             # append data from input in list.
-            add = mongo_connect.db_management()
+            add = mongo_connect.Db_Management()
             add.add_to_db(frota=int(frota), placa=str(plate))
 
             # returning to "home_page" after to add itens in table with the list.
@@ -57,7 +54,7 @@ def create_app():
     @app.route("/editar/<id>", methods=["GET", "POST"])
     def update(id):
         # Get specific car data.
-        item_id = mongo_connect.db_management().get_by_id(str(id))
+        item_id = mongo_connect.Db_Management().get_by_id(str(id))
 
         # This is accessed from update page
         if request.method == "POST":
@@ -74,7 +71,7 @@ def create_app():
             new_plate = form_plate
 
             # Set update in DB
-            mongo_connect.db_management().update_data(
+            mongo_connect.Db_Management().update_data(
                 old_frota, new_frota, old_plate, new_plate)
 
             # Redirect to page
@@ -88,7 +85,7 @@ def create_app():
     # * DELETE
     @app.route("/deletar/<id>", methods=["GET", "POST"])
     def delete(id):
-        mongo_connect.db_management().delete_data(id)
+        mongo_connect.Db_Management().delete_data(id)
         return redirect(url_for('home_page'))
 
     # Main execute

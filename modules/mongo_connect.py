@@ -8,7 +8,7 @@ db = client["frota"]
 car = db["carros"]
 
 
-class db_management:
+class Db_Management:
     def __init__(self):
         pass
 
