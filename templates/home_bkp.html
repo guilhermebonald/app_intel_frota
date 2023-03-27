@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Intel App</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+
+<body>
+    <!-- Nav Bar -->
+    <nav class="nav-bar">Intel App</nav>
+
+    <!-- Main Title-->
+    <h1 class="hello"></h1>
+
+    <!-- Table -->
+    <div class="table div">
+        <table class="main-table">
+            <thead>
+                <tr>
+                    <th>Frota</th>
+                    <th>Placa</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in items %}
+                <tr>
+                    <td>{{i.frota}}</td>
+                    <td>{{i.placa}}</td>
+                    <!-- Update Button -->
+                    <td>
+                        <form action="{{ url_for('update', id=i._id) }}">
+                            {{ form.csrf_token }}
+                            {{ form.edit_btn(class_="edit-btn") }}
+                        </form>
+                    </td>
+                    <!-- Delete button -->
+                    <td>
+                        <form action="{{ url_for('delete', id=i._id) }}">
+                            {{ form.csrf_token }}
+                            {{ form.delete_btn(class_="delete-btn") }}
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Imput e Botão para adicionar item a lista -->
+    <!-- url_for('add') acessa a rota(URL) atraves da função -->
+    <div class="my form">
+        <form method="POST" action="{{ url_for('add_item') }}">
+            {{ form.csrf_token }}
+            {{ form.frota.label }} {{ form.frota }}
+            {{ form.plate.label }} {{ form.plate }}
+            {{ form.add_btn(class_="add-btn") }}
+        </form>
+        {% if form.frota.errors %}
+            <ul class="errors">
+                {% for error in form.frota.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</body>
+
+</html>

@@ -14,14 +14,15 @@ data_base = mongo_connect.Db_Management()
 def frota_exist(form, field):
     frota = data_base.get_data()
     for i in frota:
-        if int(field.data) != int(i["frota"]):
+        if int(field.data) == int(i["frota"]):
             raise validators.ValidationError('Veículo já cadastrado.')
-    return True
 
 # Add Validations
+
+
 class AddValidate(FlaskForm):
     frota = StringField(
-        "Frota", [validators.DataRequired(), validators.length(min=2, max=3)])
+        "Frota", [validators.DataRequired(message="Insira o número da frota"), validators.length(min=2, max=3), frota_exist])
     plate = StringField(
         "Placa", [validators.DataRequired(), validators.length(min=7, max=8)])
     add_btn = SubmitField('Adicionar')
