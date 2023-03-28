@@ -15,45 +15,14 @@
 
 </head>
 
-<body>
+<body class="my-body">
     <header>
         <!-- place navbar here -->
         {% include 'navbar.html' %}
     </header>
     <main>
-        <div class="table-responsive">
-            <table class="table table-primary">
-                <thead>
-                    <tr>
-                        <th scope="col">Frota</th>
-                        <th scope="col">Placa</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for i in items %}
-                    <tr>
-                        <td>{{i.frota}}</td>
-                        <td>{{i.placa}}</td>
-                        <!-- Update Button -->
-                        <td>
-                            <form action="{{ url_for('update', id=i._id) }}">
-                                {{ form.csrf_token }}
-                                {{ form.edit_btn(class_="edit-btn") }}
-                            </form>
-                        </td>
-                        <!-- Delete button -->
-                        <td>
-                            <form action="{{ url_for('delete', id=i._id) }}">
-                                {{ form.csrf_token }}
-                                {{ form.delete_btn(class_="delete-btn") }}
-                            </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <!-- Imput e Botão para adicionar item a lista -->
+        <!-- place table here -->
+        {% include 'table.html' %}
         <!-- url_for('add') acessa a rota(URL) atraves da função -->
         <div class="my form">
             <form method="POST" action="{{ url_for('add_item') }}">

@@ -1,0 +1,35 @@
+<!-- Table -->
+<div class="container text-center my-table">
+    <div class="row align-items-start">
+        <div class="col all-col">
+            Frota
+            {% for i in items %}
+            <h4 class="title table">{{ i.frota }}</h4>
+            {% endfor %}
+        </div>
+        <div class="col all-col">
+            Placa
+            {% for i in items %}
+            <h4 class="title table">{{ i.placa }}</h4>
+            {% endfor %}
+        </div>
+        <div class="col all-col">
+            -
+            {% for i in items %}
+            <form action="{{ url_for('update', id=i._id) }}">
+                {{ form.csrf_token }}
+                {{ form.edit_btn(class_="edit-btn") }}
+            </form>
+            {% endfor %}
+        </div>
+        <div class="col all-col">
+            -
+            {% for i in items %}
+            <form action="{{ url_for('delete', id=i._id) }}">
+                {{ form.csrf_token }}
+                {{ form.delete_btn(class_="delete-btn") }}
+            </form>
+            {% endfor %}
+        </div>
+    </div>
+</div>
