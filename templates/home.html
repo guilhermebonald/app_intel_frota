@@ -29,7 +29,7 @@
                 {{ form.csrf_token }}
                 {{ form.frota.label }} {{ form.frota }}
                 {{ form.plate.label }} {{ form.plate }}
-                <button type="button" class="btn btn-primary btn-sm">{{ form.add_btn }}</button>
+                {{ form.add_btn(class_='btn btn-success btn-sm') }}
             </form>
             {% if form.frota.errors %}
             <ul class="errors">

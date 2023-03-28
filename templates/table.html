@@ -18,7 +18,7 @@
             {% for i in items %}
             <form action="{{ url_for('update', id=i._id) }}">
                 {{ form.csrf_token }}
-                {{ form.edit_btn(class_="edit-btn") }}
+                {{ form.edit_btn(class_="btn btn-info btn-sm edit-btn") }}
             </form>
             {% endfor %}
         </div>
@@ -27,7 +27,7 @@
             {% for i in items %}
             <form action="{{ url_for('delete', id=i._id) }}">
                 {{ form.csrf_token }}
-                {{ form.delete_btn(class_="delete-btn") }}
+                {{ form.delete_btn(class_="btn btn-danger btn-sm delete-btn") }}
             </form>
             {% endfor %}
         </div>
