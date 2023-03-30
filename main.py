@@ -10,6 +10,8 @@ secret_key = os.urandom(24)
 # Instance of Flask App
 
 # * The Initial Function.
+
+
 def create_app():
     app = Flask(__name__)
     app.secret_key = secret_key
@@ -24,7 +26,11 @@ def create_app():
         form = validations.AddValidate()
         # return list with data from DataBase
         data = mongo_connect.Db_Management().get_data()
-        return render_template("home.html", items=data, form=form)
+        return render_template("pages/veiculos.html", items=data, form=form)
+
+    @app.route("/veiculos")
+    def veiculos():
+        return render_template("")
 
     # POST to add item in list
     # * ADD
@@ -39,7 +45,7 @@ def create_app():
             plate = form.plate.data.upper()
             if len(plate) == 7:
                 plate = plate[:3] + '-' + plate[3:]
-            
+
             # append data from input in list.
             add = mongo_connect.Db_Management()
             add.add_to_db(frota=int(frota), placa=str(plate))
@@ -55,12 +61,13 @@ def create_app():
     def update(id):
         # Get specific car data.
         item_id = mongo_connect.Db_Management().get_by_id(str(id))
+        form = validations.AddValidate()
 
         # This is accessed from update page
         if request.method == "POST":
             # Get Form Data.
-            form_frota = request.form['form_frota']
-            form_plate = request.form['form_placa'].upper()
+            form_frota = form.frota.data
+            form_plate = form.plate.data.upper()
 
             # get old data.
             old_frota = item_id['frota']
@@ -80,7 +87,7 @@ def create_app():
         # This is accessed from home page
         elif request.method == "GET":
             # Return to update form
-            return render_template("update.html", item=item_id)
+            return render_template("elements/update_form.html", form=form, item=item_id)
 
     # * DELETE
     @app.route("/deletar/<id>", methods=["GET", "POST"])

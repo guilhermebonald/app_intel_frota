@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <!-- Table -->
 <div class="container text-center">
     <div class="row align-items-start">
@@ -33,3 +36,8 @@
         </div>
     </div>
 </div>
+
+<!-- Form -->
+{% include 'elements/add_form.html' %}
+
+{% endblock %}

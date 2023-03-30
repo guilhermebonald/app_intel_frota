@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="my form">
+    <form method="POST" action="{{ url_for('update', id=item.id) }}">
+        {{ form.csrf_token }}
+        <!-- Bootstrap Row / Collumn -->
+        <div class="container text-start mt-4">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6>Frota</h6>
+                    {{ form.frota(class='form-control') }}
+                </div>
+                <div class="col-sm-3">
+                    <h6>Placa</h6>
+                    {{ form.plate(class='form-control') }}
+                </div>
+                <div class="col-sm-3">
+                    <h6>-</h6>
+                    {{ form.edit_btn(class_='btn btn-success btn-sm mx-auto p-2') }}
+                </div>
+            </div>
+        </div>
+    </form>
+    {% if form.frota.errors %}
+    <ul class="errors">
+        {% for error in form.frota.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+{% endblock %}
