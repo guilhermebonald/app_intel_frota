@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="my form">
-    <form method="POST" action="{{ url_for('update', id=item.id) }}">
+    <form method="POST" action="{{ url_for('update', id=item._id) }}">
         {{ form.csrf_token }}
         <!-- Bootstrap Row / Collumn -->
         <div class="container text-start mt-4">

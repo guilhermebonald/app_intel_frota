@@ -25,12 +25,16 @@ def create_app():
     def home_page():
         form = validations.AddValidate()
         # return list with data from DataBase
-        data = mongo_connect.Db_Management().get_data()
-        return render_template("pages/veiculos.html", items=data, form=form)
+        data = mongo_connect.Db_Cars().get_data()
+        return render_template("pages/registro.html", items=data, form=form)
 
+    # * REGISTRO
     @app.route("/veiculos")
     def veiculos():
-        return render_template("")
+        form = validations.AddValidate()
+        # return list with data from DataBase
+        data = mongo_connect.Db_Cars().get_data()
+        return render_template("pages/veiculos.html", items=data, form=form)
 
     # POST to add item in list
     # * ADD
@@ -47,7 +51,7 @@ def create_app():
                 plate = plate[:3] + '-' + plate[3:]
 
             # append data from input in list.
-            add = mongo_connect.Db_Management()
+            add = mongo_connect.Db_Cars()
             add.add_to_db(frota=int(frota), placa=str(plate))
 
             # returning to "home_page" after to add itens in table with the list.
@@ -60,10 +64,10 @@ def create_app():
     @app.route("/editar/<id>", methods=["GET", "POST"])
     def update(id):
         # Get specific car data.
-        item_id = mongo_connect.Db_Management().get_by_id(str(id))
+        item_id = mongo_connect.Db_Cars().get_by_id(str(id))
         form = validations.AddValidate()
 
-        # This is accessed from update page
+        # 2° - This is accessed from update page
         if request.method == "POST":
             # Get Form Data.
             form_frota = form.frota.data
@@ -78,13 +82,13 @@ def create_app():
             new_plate = form_plate
 
             # Set update in DB
-            mongo_connect.Db_Management().update_data(
+            mongo_connect.Db_Cars().update_data(
                 old_frota, new_frota, old_plate, new_plate)
 
             # Redirect to page
             return redirect(url_for("home_page"))
 
-        # This is accessed from home page
+        # 1° - This is accessed from home page
         elif request.method == "GET":
             # Return to update form
             return render_template("elements/update_form.html", form=form, item=item_id)
@@ -92,7 +96,7 @@ def create_app():
     # * DELETE
     @app.route("/deletar/<id>", methods=["GET", "POST"])
     def delete(id):
-        mongo_connect.Db_Management().delete_data(id)
+        mongo_connect.Db_Cars().delete_data(id)
         return redirect(url_for('home_page'))
 
     # Main execute
