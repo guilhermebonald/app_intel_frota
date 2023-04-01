@@ -8,7 +8,7 @@ is a subclass of "Form", so 'add_validate' inherits (herda)
 the attributes for class 'Form'"""
 
 
-data_base = mongo_connect.Db_Management()
+data_base = mongo_connect.Db_Cars()
 
 
 def frota_exist(form, field):
