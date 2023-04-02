@@ -61,9 +61,14 @@ class Db_Register:
         pass
     
     # * Function to get data fro MongoDB. Return [{}]
-    def get_data():
+    def get_data(self):
         data = []
         for i in register.find():
             data.append(i)
         return data
-        
+
+
+# tests
+# data = Db_Register.get_data()
+# for i in data:
+#     print(i['data'])

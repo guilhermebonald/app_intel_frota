@@ -23,10 +23,9 @@ def create_app():
     # * HOME
     @app.route("/")
     def home_page():
-        form = validations.AddValidate()
         # return list with data from DataBase
-        data = mongo_connect.Db_Cars().get_data()
-        return render_template("pages/registro.html", items=data, form=form)
+        data = mongo_connect.Db_Register().get_data()
+        return render_template("pages/registro.html", items=data)
 
     # * REGISTRO
     @app.route("/veiculos")
@@ -55,9 +54,9 @@ def create_app():
             add.add_to_db(frota=int(frota), placa=str(plate))
 
             # returning to "home_page" after to add itens in table with the list.
-            return redirect(url_for("home_page"))
+            return redirect(url_for("veiculos"))
         else:
-            return redirect(url_for("home_page"))
+            return redirect(url_for("veiculos"))
 
     # POST to update item in list / GET to access update page.
     # * UPDATE
@@ -86,7 +85,7 @@ def create_app():
                 old_frota, new_frota, old_plate, new_plate)
 
             # Redirect to page
-            return redirect(url_for("home_page"))
+            return redirect(url_for("veiculos"))
 
         # 1° - This is accessed from home page
         elif request.method == "GET":
@@ -97,7 +96,7 @@ def create_app():
     @app.route("/deletar/<id>", methods=["GET", "POST"])
     def delete(id):
         mongo_connect.Db_Cars().delete_data(id)
-        return redirect(url_for('home_page'))
+        return redirect(url_for('veiculos'))
 
     # Main execute
     if __name__ == "__main__":
