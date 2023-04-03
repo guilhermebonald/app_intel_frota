@@ -2,23 +2,23 @@
 
 {% block content %}
 
-<div class="my form">
+<div class="container my form text-center mt-4 mb-5">
     <form method="POST" action="{{ url_for('update', id=item._id) }}">
         {{ form.csrf_token }}
         <!-- Bootstrap Row / Collumn -->
-        <div class="container text-start mt-4">
+        <div">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col">
                     <h6>Frota</h6>
                     {{ form.frota(class='form-control') }}
                 </div>
-                <div class="col-sm-3">
+                <div class="col">
                     <h6>Placa</h6>
                     {{ form.plate(class='form-control') }}
                 </div>
-                <div class="col-sm-3">
+                <div class="col">
                     <h6>-</h6>
-                    {{ form.edit_btn(class_='btn btn-success btn-sm mx-auto p-2') }}
+                    {{ form.edit_btn(class_='btn btn-success btn') }}
                 </div>
             </div>
         </div>

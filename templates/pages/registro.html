@@ -2,93 +2,42 @@
 
 {% block content %}
 <!-- Table -->
-<div class="container-xxl text-center register">
-    <div class="row flex-nowrap justify-content-center">
-        <!-- !> Data -->
-        <div class="col-1 all-col my-collumn">
-            Data
-            {% for i in items %}
-            <h4 class="title table mt-4">{{ i.data }}</h4>
-            {% endfor %}
-        </div>
-        <!-- !> Year -->
-        <div class="col-1 all-col">
-            Ano
-            {% for i in items %}
-            <h4 class="title table mt-4">{{ i.ano }}</h4>
-            {% endfor %}
-        </div>
-        <!-- !> Month -->
-        <div class="col-1 all-col">
-            Mês
-            {% for i in items %}
-            <h4 class="title table mt-4">{{ i.mes }}</h4>
-            {% endfor %}
-        </div>
-        <!-- !> Transaction -->
-        <div class="col-1 all-col">
-            C/D
-            {% for i in items %}
-            <h4 class="title table mt-4">{{ i.transacao }}</h4>
-            {% endfor %}
-        </div>
-        <!-- !> Vehicle -->
-        <div class="col-1 all-col">
-            Veículo
-            {% for i in items %}
-            <h4 class="title table mt-4">{{ i.veiculo }}</h4>
-            {% endfor %}
-        </div>
-        <!-- !> Recipe Suggestion -->
-        <div class="col-3 all-col my-collumn">
-            Sugestão de Receita
-            {% for i in items %}
-            <h4 class="title table mt-4">{{ i.sug_receita }}</h4>
-            {% endfor %}
-        </div>
-        <!-- !> Recipe -->
-        <div class="col-3 all-col">
-            Receita
-            {% for i in items %}
-            <h4 class="title table mt-4">{{ i.receita }}</h4>
-            {% endfor %}
-        </div>
-        <!-- !> Description -->
-        <div class="col-4 all-col">
-            Descrição
-            {% for i in items %}
-            <h4 class="title table mt-4">{{ i.descricao }}</h4>
-            {% endfor %}
-        </div>
-        <!-- !> NF -->
-        <div class="col-2 all-col">
-            Nota Fiscal
-            {% for i in items %}
-            <h4 class="title table mt-4">{{ i.nf }}</h4>
-            {% endfor %}
-        </div>
-        <!-- !> Amount -->
-        <div class="col-1 all-col">
-            Qnt
-            {% for i in items %}
-            <h4 class="title table mt-4">{{ i.quantidade }}</h4>
-            {% endfor %}
-        </div>
-        <!-- !> Value -->
-        <div class="col-2 all-col">
-            Valor
-            {% for i in items %}
-            <h4 class="title table mt-4">{{ i.valor }}</h4>
-            {% endfor %}
-        </div>
-        <!-- !> Total -->
-        <div class="col-2 all-col">
-            Total
-            {% for i in items %}
-            <h4 class="title table mt-4">{{ i.valor }}</h4>
-            {% endfor %}
-        </div>
-    </div>
-</div>
+<table class="container-xxl table text-center table-bordered table-dark table-striped">
+    <thead>
+        <tr class="table-primary text-center my-table-header-register">
+            <th scope="col">Frota</th>
+            <th scope="col">Ano</th>
+            <th scope="col">Mês</th>
+            <th scope="col">C/D</th>
+            <th scope="col">Veículo</th>
+            <th scope="col">Sugestão de Receita</th>
+            <th scope="col">Receita</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">NF</th>
+            <th scope="col">QNT</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Total</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <!-- Row (tr) with collumn (td) -->
+        {% for i in items %}
+        <tr class="text-center">
+            <td>{{ i.data }}</td>
+            <td>{{ i.ano }}</td>
+            <td>{{ i.mes }}</td>
+            <td>{{ i.transacao }}</td>
+            <td>{{ i.veiculo }}</td>
+            <td>{{ i.sug_receita }}</td>
+            <td>{{ i.receita }}</td>
+            <td>{{ i.descricao }}</td>
+            <td>{{ i.nf}}</td>
+            <td>{{ i.quantidade }}</td>
+            <td>{{ i.valor }}</td>
+            <td>{{ i.valor }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 {% endblock %}

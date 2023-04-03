@@ -13,13 +13,8 @@
     margin-top: 10px;
 }
 
-.title.table {
-    margin-top: 10px;
-    font-size: 15px;
-    color: white;
-}
 
-.edit-btn {
+/* .edit-btn {
     margin-top: 14px;
     font-size: 12px;
 }
@@ -27,4 +22,16 @@
 .delete-btn {
     margin-top: 14px;
     font-size: 12px;
+} */
+
+.my-table-header-cars {
+    font-size: 18px;
+}
+
+.my-table-header-register {
+    font-size: 18px;
+}
+
+.my-add-form {
+    padding: 200px;
 }
