@@ -2,87 +2,87 @@
 
 {% block content %}
 <!-- Table -->
-<div class="container text-center">
-    <div class="row align-items-start">
+<div class="container-xxl text-center register">
+    <div class="row flex-nowrap justify-content-center">
         <!-- !> Data -->
-        <div class="col all-col">
+        <div class="col-1 all-col my-collumn">
             Data
             {% for i in items %}
             <h4 class="title table mt-4">{{ i.data }}</h4>
             {% endfor %}
         </div>
         <!-- !> Year -->
-        <div class="col all-col">
+        <div class="col-1 all-col">
             Ano
             {% for i in items %}
             <h4 class="title table mt-4">{{ i.ano }}</h4>
             {% endfor %}
         </div>
         <!-- !> Month -->
-        <div class="col all-col">
+        <div class="col-1 all-col">
             Mês
             {% for i in items %}
             <h4 class="title table mt-4">{{ i.mes }}</h4>
             {% endfor %}
         </div>
         <!-- !> Transaction -->
-        <div class="col all-col">
+        <div class="col-1 all-col">
             C/D
             {% for i in items %}
             <h4 class="title table mt-4">{{ i.transacao }}</h4>
             {% endfor %}
         </div>
         <!-- !> Vehicle -->
-        <div class="col all-col">
+        <div class="col-1 all-col">
             Veículo
             {% for i in items %}
             <h4 class="title table mt-4">{{ i.veiculo }}</h4>
             {% endfor %}
         </div>
         <!-- !> Recipe Suggestion -->
-        <div class="col all-col">
+        <div class="col-3 all-col my-collumn">
             Sugestão de Receita
             {% for i in items %}
             <h4 class="title table mt-4">{{ i.sug_receita }}</h4>
             {% endfor %}
         </div>
         <!-- !> Recipe -->
-        <div class="col all-col">
+        <div class="col-3 all-col">
             Receita
             {% for i in items %}
             <h4 class="title table mt-4">{{ i.receita }}</h4>
             {% endfor %}
         </div>
         <!-- !> Description -->
-        <div class="col all-col">
+        <div class="col-4 all-col">
             Descrição
             {% for i in items %}
             <h4 class="title table mt-4">{{ i.descricao }}</h4>
             {% endfor %}
         </div>
         <!-- !> NF -->
-        <div class="col all-col">
+        <div class="col-2 all-col">
             Nota Fiscal
             {% for i in items %}
             <h4 class="title table mt-4">{{ i.nf }}</h4>
             {% endfor %}
         </div>
         <!-- !> Amount -->
-        <div class="col all-col">
+        <div class="col-1 all-col">
             Qnt
             {% for i in items %}
             <h4 class="title table mt-4">{{ i.quantidade }}</h4>
             {% endfor %}
         </div>
         <!-- !> Value -->
-        <div class="col all-col">
+        <div class="col-2 all-col">
             Valor
             {% for i in items %}
             <h4 class="title table mt-4">{{ i.valor }}</h4>
             {% endfor %}
         </div>
         <!-- !> Total -->
-        <div class="col all-col">
+        <div class="col-2 all-col">
             Total
             {% for i in items %}
             <h4 class="title table mt-4">{{ i.valor }}</h4>
