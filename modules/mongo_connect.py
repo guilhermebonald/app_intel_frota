@@ -13,6 +13,9 @@ car = db_car["carros"]
 db_register = client["registro"]
 register = db_register["main"]
 
+# Class of cars
+
+
 class Db_Cars:
     def __init__(self):
         pass
@@ -56,10 +59,12 @@ class Db_Cars:
             {"_id": ObjectId(id)}
         )
 
+
+# Class of Register
 class Db_Register:
     def __init__(self):
         pass
-    
+
     # * Function to get data fro MongoDB. Return [{}]
     def get_data(self):
         data = []
@@ -67,8 +72,13 @@ class Db_Register:
             data.append(i)
         return data
 
+    # * Function to add data to Register DB
+    def add_to_db(self, data=str, ano=str, mes=str, transacao=str, veiculo=str, sg_receita=str, receita=str, descricao=str, nf=int, quantidade=int, valor=float):
+        register.insert_one(
+            {'data': data, 'ano': ano, 'mes': mes, 'transacao': transacao, 'veiculo': veiculo, 'sug_receita': sg_receita,
+                'receita': receita, 'descricao': descricao, 'nf': nf, 'quantidade': quantidade, 'valor': valor}
+        )
 
-# tests
-# data = Db_Register.get_data()
-# for i in data:
-#     print(i['data'])
+
+# Db_Register().add_to_db('data', 'ano', 'mes', 'transacao', 'veiculo',
+#                       'sug_receita', 'receita', 'descricao', 2345, 2, 123.43)

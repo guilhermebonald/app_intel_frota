@@ -1,4 +1,4 @@
-from wtforms import StringField, validators, SubmitField
+from wtforms import StringField, validators, SubmitField, DateField
 from flask_wtf import FlaskForm
 from modules import mongo_connect
 
@@ -17,9 +17,8 @@ def frota_exist(form, field):
         if int(field.data) == int(i["frota"]):
             raise validators.ValidationError('Veículo já cadastrado.')
 
+
 # Add Validations
-
-
 class AddValidate(FlaskForm):
     frota = StringField(
         "Frota", [validators.DataRequired(message="Insira o número da frota"), validators.length(min=2, max=3), frota_exist])
@@ -28,3 +27,8 @@ class AddValidate(FlaskForm):
     add_btn = SubmitField('Adicionar')
     edit_btn = SubmitField('Editar')
     delete_btn = SubmitField('Deletar')
+
+
+# Add Register
+class AddRegister(FlaskForm):
+    data = DateField()
