@@ -11,6 +11,7 @@ the attributes for class 'Form'"""
 data_base = mongo_connect.Db_Cars()
 
 
+# Custom Validators
 def frota_exist(form, field):
     frota = data_base.get_data()
     for i in frota:
@@ -31,4 +32,8 @@ class AddValidate(FlaskForm):
 
 # Add Register
 class AddRegister(FlaskForm):
-    data = DateField()
+    data = DateField([validators.DataRequired(
+        message="Insira a Data")])
+    ano = StringField([validators.DataRequired(message="Insira o ano")], )
+    mes = StringField([validators.DataRequired(message="Insira o mês")], )
+    add_btn = SubmitField('Adicionar')

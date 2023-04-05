@@ -19,15 +19,36 @@ def create_app():
     # to this function "create_app()".
     csrf.init_app(app)
 
-    # HomePage Route
-    # * HOME
+    # ! ==== REGISTER RULES PAGE ====
     @app.route("/")
     def home_page():
+        form = validations.AddRegister()
         # return list with data from DataBase
         data = mongo_connect.Db_Register().get_data()
-        return render_template("pages/registro.html", items=data)
+        return render_template("pages/registro.html", items=data, form=form)
 
-    # * REGISTRO
+    # * ADD Register Function
+    @app.route("/add_register", methods=["POST"])
+    def add_register():
+        form = validations.AddRegister()
+
+        if request.method == 'POST' and form.validate_on_submit():
+            # Get Forms
+            data = str(form.data.data)
+            ano = str(form.ano.data)
+            print(data)
+
+            # Access function and add to DB
+            add = mongo_connect.Db_Register()
+            add.add_to_db(data=data, ano=ano)
+
+            # Redirect
+            return redirect(url_for("home_page"))
+        else:
+            print("Erro: ", form.errors)
+            return redirect(url_for("home_page"))
+
+    # ! ==== VEHICLE RULES PAGE ====
     @app.route("/veiculos")
     def veiculos():
         form = validations.AddValidate()
@@ -36,7 +57,7 @@ def create_app():
         return render_template("pages/veiculos.html", items=data, form=form)
 
     # POST to add item in list
-    # * ADD
+    # * ADD Car Function
     @app.route("/add_item", methods=["POST"])
     def add_item():
         # class "Form" receive "formdata(dict)=request.form(dict)"
@@ -59,7 +80,7 @@ def create_app():
             return redirect(url_for("veiculos"))
 
     # POST to update item in list / GET to access update page.
-    # * UPDATE
+    # * UPDATE Car Function
     @app.route("/editar/<id>", methods=["GET", "POST"])
     def update(id):
         # Get specific car data.
@@ -90,9 +111,9 @@ def create_app():
         # 1° - This is accessed from home page
         elif request.method == "GET":
             # Return to update form
-            return render_template("elements/update_form.html", form=form, item=item_id)
+            return render_template("elements_pages/update.html", form=form, item=item_id)
 
-    # * DELETE
+    # * DELETE Car Function
     @app.route("/deletar/<id>", methods=["GET", "POST"])
     def delete(id):
         mongo_connect.Db_Cars().delete_data(id)

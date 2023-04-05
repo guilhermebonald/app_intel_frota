@@ -1,0 +1,38 @@
+<div class="container my form text-start mt-4 mb-5">
+    <form method="POST" action="{{ url_for('add_register') }}">
+        {{ form.csrf_token }}
+        <!-- Bootstrap Row / Collumn -->
+        <div class="row">
+            <div class="col">
+                <h6>Data</h6>
+                {{ form.data }}
+            </div>
+            <div class="col">
+                <h6>Ano</h6>
+                {{ form.ano }}
+            </div>
+            <div class="col">
+                <h6>Mês</h6>
+                {{ form.mes }}
+            </div>
+            <!-- Example single danger button -->
+            <div class="col">
+                <h6>Transação</h6>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        C/D
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Credito</a></li>
+                        <li><a class="dropdown-item" href="#">Debito</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col">
+                <h6>Mês</h6>
+                {{ form.add_btn }}
+            </div>
+        </div>
+    </form>
+</div>
