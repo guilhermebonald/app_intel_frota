@@ -36,11 +36,13 @@ def create_app():
         if request.method == 'POST' and form.validate_on_submit():
             # Get Forms
             data = form.data.data.strftime('%d/%m/%Y')
-            transacao = form.transacao.data
+            ano = form.ano.data
+            mes = form.mes.data.upper()
+            transacao = form.transacao.data.upper()
 
             # Access function and add to DB
             add = mongo_connect.Db_Register()
-            add.add_to_db(data=str(data), ano='', mes='', transacao=str(transacao), veiculo='',
+            add.add_to_db(data=str(data), ano=str(ano), mes=str(mes), transacao=str(transacao), veiculo='',
                           sg_receita='', receita='', descricao='', nf=0, quantidade=0, valor=0.0)
             # print(type(transacao), transacao)
 
