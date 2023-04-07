@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from modules import mongo_connect, validations
 from flask_wtf.csrf import CSRFProtect
+from datetime import datetime
 import os
 
 csrf = CSRFProtect()
@@ -34,13 +35,14 @@ def create_app():
 
         if request.method == 'POST' and form.validate_on_submit():
             # Get Forms
-            data = str(form.data.data)
-            ano = str(form.ano.data)
-            print(data)
+            data = form.data.data.strftime('%d/%m/%Y')
+            transacao = form.transacao.data
 
             # Access function and add to DB
             add = mongo_connect.Db_Register()
-            add.add_to_db(data=data, ano=ano)
+            add.add_to_db(data=str(data), ano='', mes='', transacao=str(transacao), veiculo='',
+                          sg_receita='', receita='', descricao='', nf=0, quantidade=0, valor=0.0)
+            # print(type(transacao), transacao)
 
             # Redirect
             return redirect(url_for("home_page"))

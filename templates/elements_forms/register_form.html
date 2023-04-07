@@ -18,16 +18,7 @@
             <!-- Example single danger button -->
             <div class="col">
                 <h6>Transação</h6>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        C/D
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Credito</a></li>
-                        <li><a class="dropdown-item" href="#">Debito</a></li>
-                    </ul>
-                </div>
+                {{ form.transacao(class_='btn btn-warning dropdown-toggle') }}
             </div>
             <div class="col">
                 <h6>Mês</h6>

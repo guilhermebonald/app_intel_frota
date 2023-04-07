@@ -1,4 +1,4 @@
-from wtforms import StringField, validators, SubmitField, DateField
+from wtforms import StringField, validators, SubmitField, DateField, SelectField
 from flask_wtf import FlaskForm
 from modules import mongo_connect
 
@@ -33,7 +33,9 @@ class AddValidate(FlaskForm):
 # Add Register
 class AddRegister(FlaskForm):
     data = DateField([validators.DataRequired(
-        message="Insira a Data")])
-    ano = StringField([validators.DataRequired(message="Insira o ano")], )
-    mes = StringField([validators.DataRequired(message="Insira o mês")], )
+        message="Insira a Data")], format='%Y-%m-%d')
+    # ano = StringField([validators.DataRequired(message="Insira o ano")], )
+    # mes = StringField([validators.DataRequired(message="Insira o mês")], )
+    transacao = SelectField([validators.DataRequired()],
+                            choices=[('Credito', 'Credito'), ('Debito', 'Debito')])
     add_btn = SubmitField('Adicionar')
