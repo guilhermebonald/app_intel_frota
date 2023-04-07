@@ -1,29 +1,24 @@
-<div class="container my form text-start mt-4 mb-5">
+<table class="container text-center table table-dark t-form">
     <form method="POST" action="{{ url_for('add_register') }}">
         {{ form.csrf_token }}
-        <!-- Bootstrap Row / Collumn -->
-        <div class="row">
-            <div class="col">
-                <h6>Data</h6>
-                {{ form.data }}
-            </div>
-            <div class="col">
-                <h6>Ano</h6>
-                {{ form.ano }}
-            </div>
-            <div class="col">
-                <h6>Mês</h6>
-                {{ form.mes }}
-            </div>
-            <!-- Example single danger button -->
-            <div class="col">
-                <h6>Transação</h6>
-                {{ form.transacao(class_='btn btn-warning dropdown-toggle') }}
-            </div>
-            <div class="col">
-                <h6>Mês</h6>
-                {{ form.add_btn }}
-            </div>
-        </div>
+        <thead>
+            <tr>
+                <th scope="col">Data</th>
+                <th scope="col">Ano</th>
+                <th scope="col">Mês</th>
+                <th scope="col">Transação</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- tr(Row) / td(Collumn) -->
+            <tr>
+                <td>{{ form.data }}</td>
+                <td>{{ form.ano(class_='form-control form-control-sm text-center') }}</td>
+                <td>{{ form.mes(class_='btn btn-warning dropdown-toggle text-center') }}</td>
+                <td>{{ form.transacao(class_='btn btn-info dropdown-toggle text-center') }}</td>
+                <td>{{ form.add_btn(class_='btn btn-success') }}</td>
+            </tr>
+        </tbody>
     </form>
-</div>
+</table>

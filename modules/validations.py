@@ -34,8 +34,10 @@ class AddValidate(FlaskForm):
 class AddRegister(FlaskForm):
     data = DateField([validators.DataRequired(
         message="Insira a Data")], format='%Y-%m-%d')
-    # ano = StringField([validators.DataRequired(message="Insira o ano")], )
-    # mes = StringField([validators.DataRequired(message="Insira o mês")], )
+    ano = StringField([validators.DataRequired(message="Insira o ano")], )
+    mes = SelectField([validators.DataRequired()],
+                      choices=[('janeiro', 'Janeiro'), ('fevereiro', 'Fevereiro'), ('março', 'Março'), ('abril', 'Abril'), ('maio', 'Maio'), ('junho', 'Junho'),
+                               ('julho', 'Julho'), ('agosto', 'Agosto'), ('setembro', 'Setembro'), ('outubro', 'Outubro'), ('novembro', 'Novembro'), ('dezembro', 'Dezembro')])
     transacao = SelectField([validators.DataRequired()],
-                            choices=[('Credito', 'Credito'), ('Debito', 'Debito')])
+                            choices=[('credito', 'Credito'), ('debito', 'Debito')])
     add_btn = SubmitField('Adicionar')
