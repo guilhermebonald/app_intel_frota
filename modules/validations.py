@@ -37,7 +37,7 @@ class AddRegister(FlaskForm):
         message="Insira a Data")], format='%Y-%m-%d')
     
     # Year Form
-    ano = StringField([validators.DataRequired(message="Insira o ano")], )
+    ano = StringField('Ano', [validators.DataRequired(message="Insira o ano")], )
 
     # Mounth Form
     mes = SelectField([validators.DataRequired()],

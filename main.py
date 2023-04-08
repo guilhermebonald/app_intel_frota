@@ -35,7 +35,7 @@ def create_app():
 
         if request.method == 'POST' and form.validate_on_submit():
             # Get Forms
-            data = form.data.data.strftime('%d/%m/%Y')
+            data = form.data.data.strftime('%d/%m/%Y') 
             ano = form.ano.data
             mes = form.mes.data.upper()
             transacao = form.transacao.data.upper()
@@ -49,7 +49,6 @@ def create_app():
             # Redirect
             return redirect(url_for("home_page"))
         else:
-            print("Erro: ", form.errors)
             return redirect(url_for("home_page"))
 
     # ! ==== VEHICLE RULES PAGE ====
