@@ -56,3 +56,4 @@ class AddRegister(FlaskForm):
         ]
     )
     add_btn = SubmitField('Adicionar')
+

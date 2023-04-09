@@ -2,43 +2,45 @@
 
 {% block content %}
 <!-- Table -->
-<table class="container-xxl table text-center table-bordered table-dark table-striped">
-    <thead>
-        <tr class="table-primary text-center my-table-header-register">
-            <th scope="col">Data</th>
-            <th scope="col">Ano</th>
-            <th scope="col">Mês</th>
-            <th scope="col">C/D</th>
-            <th scope="col">Veículo</th>
-            <th scope="col">Sugestão de Receita</th>
-            <th scope="col">Receita</th>
-            <th scope="col">Descrição</th>
-            <th scope="col">NF</th>
-            <th scope="col">QNT</th>
-            <th scope="col">Valor</th>
-            <th scope="col">Total</th>
-        </tr>
-    </thead>
-    <tbody class="table-group-divider my-table-body-register">
-        <!-- Row (tr) with collumn (td) -->
-        {% for i in items %}
-        <tr class="text-center">
-            <td>{{ i.data }}</td>
-            <td>{{ i.ano }}</td>
-            <td>{{ i.mes }}</td>
-            <td>{{ i.transacao }}</td>
-            <td>{{ i.veiculo }}</td>
-            <td>{{ i.sug_receita }}</td>
-            <td>{{ i.receita }}</td>
-            <td>{{ i.descricao }}</td>
-            <td>{{ i.nf}}</td>
-            <td>{{ i.quantidade }}</td>
-            <td>{{ i.valor }}</td>
-            <td>{{ i.valor }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container">
+    <table id="myTable" class="container-xxl table text-center table-bordered table-dark table-striped">
+        <thead>
+            <tr class="table-primary text-center my-table-header-register">
+                <th scope="col">Data</th>
+                <th scope="col">Ano</th>
+                <th scope="col">Mês</th>
+                <th scope="col">C/D</th>
+                <th scope="col">Veículo</th>
+                <th scope="col">Sugestão de Receita</th>
+                <th scope="col">Receita</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">NF</th>
+                <th scope="col">QNT</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider my-table-body-register">
+            <!-- Row (tr) with collumn (td) -->
+            {% for i in items %}
+            <tr class="text-center">
+                <td>{{ i.data }}</td>
+                <td>{{ i.ano }}</td>
+                <td>{{ i.mes }}</td>
+                <td>{{ i.transacao }}</td>
+                <td>{{ i.veiculo }}</td>
+                <td>{{ i.sug_receita }}</td>
+                <td>{{ i.receita }}</td>
+                <td>{{ i.descricao }}</td>
+                <td>{{ i.nf}}</td>
+                <td>{{ i.quantidade }}</td>
+                <td>{{ i.valor }}</td>
+                <td>{{ i.valor }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 <!-- Form -->
 {% include 'elements_forms/register_form.html' %}

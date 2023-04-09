@@ -12,6 +12,7 @@ car = db_car["carros"]
 # Register DB Instance
 db_register = client["registro"]
 register = db_register["main"]
+aditivo = db_register["aditivo"]
 
 # Class of cars
 

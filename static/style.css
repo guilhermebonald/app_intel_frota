@@ -5,11 +5,6 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-.main-navbar {
-    font-size: 16px;
-    font-weight: 600;
-}
-
 .my-body {
     background-color: #212529;
     color: white;
@@ -19,6 +14,19 @@ body {
     font-size: 20px;
     margin-bottom: 10px;
     margin-top: 10px;
+}
+
+/* Styles Navbar */
+
+.main-navbar {
+    font-size: 16px;
+    font-weight: 600;
+    padding-top: 25px;
+}
+
+.bg-navbar {
+    height: 100px;
+    margin-bottom: 50px;
 }
 
 /* Styles Cars Page */
@@ -31,7 +39,6 @@ body {
     font-size: 16px;
     font-weight: 600;
 }
-
 
 /* Styles Register Page */
 
