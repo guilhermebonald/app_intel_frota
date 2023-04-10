@@ -66,10 +66,17 @@ class Db_Register:
     def __init__(self):
         pass
 
-    # * Function to get data fro MongoDB. Return [{}]
-    def get_data(self):
+    # * Function to get MAIN data from MongoDB. Return [{}]
+    def get_main_data(self):
         data = []
         for i in register.find():
+            data.append(i)
+        return data
+    
+    # * Function to get ADITIVO data from MongoDB. Return [{}]
+    def get_aditivo_data(self):
+        data = []
+        for i in aditivo.find():
             data.append(i)
         return data
 

@@ -9,6 +9,7 @@ the attributes for class 'Form'"""
 
 
 db_cars = mongo_connect.Db_Cars()
+db_receitas = mongo_connect.Db_Register()
 
 
 # Custom Validators
@@ -55,5 +56,14 @@ class AddRegister(FlaskForm):
             i['placa'] for i in db_cars.get_data()
         ]
     )
+
+    # Sg Receitas
+    sg_receitas = SelectField(
+        [validators.DataRequired()],
+        choices=[
+            i['rota'] for i in db_receitas.get_aditivo_data()
+        ]
+    )
+
     add_btn = SubmitField('Adicionar')
 

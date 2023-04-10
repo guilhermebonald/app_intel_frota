@@ -25,7 +25,7 @@ def create_app():
     def home_page():
         form = validations.AddRegister()
         # return list with data from DataBase
-        data = mongo_connect.Db_Register().get_data()
+        data = mongo_connect.Db_Register().get_main_data()
         return render_template("pages/registro.html", items=data, form=form)
 
     # * ADD Register Function
