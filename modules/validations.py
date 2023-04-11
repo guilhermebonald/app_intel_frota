@@ -38,7 +38,7 @@ class AddRegister(FlaskForm):
         message="Insira a Data")], format='%Y-%m-%d')
     
     # Year Form
-    ano = StringField('Ano', [validators.DataRequired(message="Insira o ano")], )
+    ano = StringField('Ano', [validators.DataRequired(message="Insira o ano")])
 
     # Mounth Form
     mes = SelectField([validators.DataRequired()],
@@ -54,15 +54,15 @@ class AddRegister(FlaskForm):
         [validators.DataRequired()],
         choices=[
             i['placa'] for i in db_cars.get_data()
-        ]
+        ], id = 'veiculos'
     )
 
     # Sg Receitas
-    sg_receitas = SelectField(
+    receitas = SelectField(
         [validators.DataRequired()],
         choices=[
             i['rota'] for i in db_receitas.get_aditivo_data()
-        ]
+        ], id = 'receitas'
     )
 
     add_btn = SubmitField('Adicionar')

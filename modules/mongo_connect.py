@@ -83,8 +83,8 @@ class Db_Register:
     # * Function to add data to Register DB
     def add_to_db(self, data=str, ano=str, mes=str, transacao=str, veiculo=str, sg_receita=str, receita=str, descricao=str, nf=int, quantidade=int, valor=float):
         register.insert_one(
-            {'data': data, 'ano': ano, 'mes': mes, 'transacao': transacao, 'veiculo': veiculo, 'sug_receita': sg_receita,
-                'receita': receita, 'descricao': descricao, 'nf': nf, 'quantidade': quantidade, 'valor': valor}
+            {'data': data, 'ano': ano, 'mes': mes, 'transacao': transacao, 'veiculo': veiculo, 
+             'receita': receita, 'descricao': descricao, 'nf': nf, 'quantidade': quantidade, 'valor': valor}
         )
 
 
