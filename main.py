@@ -33,9 +33,9 @@ def create_app():
     def add_register():
         form = validations.AddRegister()
 
-        if request.method == 'POST' and form.validate_on_submit():
+        if request.method == "POST" and form.validate_on_submit():
             # Get Forms
-            data = form.data.data.strftime('%d/%m/%Y')
+            data = form.data.data.strftime("%d/%m/%Y")
             ano = form.ano.data
             mes = form.mes.data.upper()
             transacao = form.transacao.data.upper()
@@ -44,8 +44,18 @@ def create_app():
 
             # Access function and add to DB
             add = mongo_connect.Db_Register()
-            add.add_to_db(data=str(data), ano=str(ano), mes=str(mes), transacao=str(transacao), veiculo=str(veiculo),
-                          receita=receita, descricao='', nf=0, quantidade=0, valor=0.0)
+            add.add_to_db(
+                data=str(data),
+                ano=str(ano),
+                mes=str(mes),
+                transacao=str(transacao),
+                veiculo=str(veiculo),
+                receita=receita,
+                descricao="",
+                nf=0,
+                quantidade=0,
+                valor=0.0,
+            )
             # print(type(transacao), transacao)
 
             # Redirect
@@ -69,11 +79,11 @@ def create_app():
         form = validations.AddValidate()
         # get input from form with name.
         # IF HTTP = POST
-        if request.method == 'POST' and form.validate_on_submit():
+        if request.method == "POST" and form.validate_on_submit():
             frota = form.frota.data
             plate = form.plate.data.upper()
             if len(plate) == 7:
-                plate = plate[:3] + '-' + plate[3:]
+                plate = plate[:3] + "-" + plate[3:]
 
             # append data from input in list.
             add = mongo_connect.Db_Cars()
@@ -99,8 +109,8 @@ def create_app():
             form_plate = form.plate.data.upper()
 
             # get old data.
-            old_frota = item_id['frota']
-            old_plate = item_id['placa']
+            old_frota = item_id["frota"]
+            old_plate = item_id["placa"]
 
             # get new data
             new_frota = int(form_frota)
@@ -108,7 +118,8 @@ def create_app():
 
             # Set update in DB
             mongo_connect.Db_Cars().update_data(
-                old_frota, new_frota, old_plate, new_plate)
+                old_frota, new_frota, old_plate, new_plate
+            )
 
             # Redirect to page
             return redirect(url_for("veiculos"))
@@ -116,15 +127,23 @@ def create_app():
         # 1° - This is accessed from home page
         elif request.method == "GET":
             # Return to update form
-            return render_template("elements_pages/update.html", form=form, item=item_id)
+            return render_template(
+                "elements_pages/update.html", form=form, item=item_id
+            )
 
     # * DELETE Car Function
     @app.route("/deletar/<id>", methods=["GET", "POST"])
     def delete(id):
         mongo_connect.Db_Cars().delete_data(id)
-        return redirect(url_for('veiculos'))
+        return redirect(url_for("veiculos"))
 
-    # Main execute
+    # ! ==== RECEITAS RULES PAGE ====
+    @app.route("/receitas", methods=["GET", "POST"])
+    def receitas():
+        data = mongo_connect.Db_Register().get_aditivo_data()
+        return render_template("pages/receitas.html", items=data)
+
+    # ? Main execute
     if __name__ == "__main__":
         app.run(debug=True)
 

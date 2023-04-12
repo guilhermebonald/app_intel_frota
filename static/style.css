@@ -32,12 +32,13 @@ body {
 /* Styles Cars Page */
 
 .my-table-header-cars {
-    font-size: 18px;
+    font-size: 16px;
+
 }
 
 .my-table-body-cars {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 500;
 }
 
 /* Styles Register Page */
@@ -48,5 +49,17 @@ body {
 
 .my-table-body-register {
     font-size: 14px;
+    font-weight: 500;
+}
+
+/* Styles Receitas Page */
+
+.my-table-header-receitas {
+    font-size: 16px;
+
+}
+
+.my-table-body-receitas {
+    font-size: 15px;
     font-weight: 500;
 }
