@@ -1,23 +1,27 @@
 from flask import Flask, render_template, request, redirect, url_for
 from modules import mongo_connect, validations
 from flask_wtf.csrf import CSRFProtect
-from datetime import datetime
+from dotenv import load_dotenv
 import os
 
-csrf = CSRFProtect()
-# The secret_key is necessary to use csrf protection, so us created this.
-secret_key = os.urandom(24)
-
-# Instance of Flask App
 
 # * The Initial Function.
 
 
 def create_app():
+    csrf = CSRFProtect()
+    
+    # Load SECRET_KEY to .env file.
+    load_dotenv()
+
+    # Start
     app = Flask(__name__)
-    app.secret_key = secret_key
-    # To set this "csrf.init_app(app)" is necessary to add all the code inside
-    # to this function "create_app()".
+    app.secret_key = os.getenv('SECRET_KEY')
+    
+    ''' 
+    To set this "csrf.init_app(app)" is necessary to add all the code inside
+    to this function "create_app()". 
+    '''
     csrf.init_app(app)
 
     # ! ==== REGISTER RULES PAGE ====
@@ -138,7 +142,7 @@ def create_app():
         return redirect(url_for("veiculos"))
 
     # ! ==== RECEITAS RULES PAGE ====
-    @app.route("/receitas", methods=["GET", "POST"])
+    @app.route("/receitas")
     def receitas():
         data = mongo_connect.Db_Register().get_aditivo_data()
         return render_template("pages/receitas.html", items=data)
