@@ -77,7 +77,7 @@ def create_app():
 
     # POST to add item in list
     # * ADD Car Function
-    @app.route("/add_item", methods=["POST"])
+    @app.route("/add_car", methods=["POST"])
     def add_item():
         # class "Form" receive "formdata(dict)=request.form(dict)"
         form = validations.AddValidate()
@@ -100,10 +100,10 @@ def create_app():
 
     # POST to update item in list / GET to access update page.
     # * UPDATE Car Function
-    @app.route("/editar/<id>", methods=["GET", "POST"])
+    @app.route("/edit_car/<id>", methods=["GET", "POST"])
     def update(id):
         # Get specific car data.
-        item_id = mongo_connect.Db_Cars().get_by_id(str(id))
+        item_by_id = mongo_connect.Db_Cars().get_by_id(str(id))
         form = validations.AddValidate()
 
         # 2° - This is accessed from update page
@@ -113,8 +113,8 @@ def create_app():
             form_plate = form.plate.data.upper()
 
             # get old data.
-            old_frota = item_id["frota"]
-            old_plate = item_id["placa"]
+            old_frota = item_by_id["frota"]
+            old_plate = item_by_id["placa"]
 
             # get new data
             new_frota = int(form_frota)
@@ -132,11 +132,11 @@ def create_app():
         elif request.method == "GET":
             # Return to update form
             return render_template(
-                "elements_pages/update.html", form=form, item=item_id
+                "elements_pages/update.html", form=form, item=item_by_id
             )
 
     # * DELETE Car Function
-    @app.route("/deletar/<id>", methods=["GET", "POST"])
+    @app.route("/delete_car/<id>", methods=["GET", "POST"])
     def delete(id):
         mongo_connect.Db_Cars().delete_data(id)
         return redirect(url_for("veiculos"))
@@ -151,5 +151,7 @@ def create_app():
     if __name__ == "__main__":
         app.run(debug=True)
 
+    
+    # ! ==== USERS RULES PAGE ====
 
 create_app()

@@ -67,3 +67,7 @@ class AddRegister(FlaskForm):
 
     add_btn = SubmitField('Adicionar')
 
+
+class AddUsers(FlaskForm):
+    # UserName
+    username = StringField('Usuario', [validators.DataRequired()])

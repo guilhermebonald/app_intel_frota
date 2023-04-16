@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import bcrypt
 
 uri = "mongodb://localhost:27017/"
 
@@ -14,9 +15,12 @@ db_register = client["registro"]
 register = db_register["main"]
 aditivo = db_register["aditivo"]
 
+# Users DB Instance
+db_users = client["usuarios"]
+users = db_users["data"]
+
+
 # Class of cars
-
-
 class Db_Cars:
     def __init__(self):
         pass
@@ -72,7 +76,7 @@ class Db_Register:
         for i in register.find():
             data.append(i)
         return data
-    
+
     # * Function to get ADITIVO data from MongoDB. Return [{}]
     def get_aditivo_data(self):
         data = []
@@ -83,10 +87,43 @@ class Db_Register:
     # * Function to add data to Register DB
     def add_to_db(self, data=str, ano=str, mes=str, transacao=str, veiculo=str, sg_receita=str, receita=str, descricao=str, nf=int, quantidade=int, valor=float):
         register.insert_one(
-            {'data': data, 'ano': ano, 'mes': mes, 'transacao': transacao, 'veiculo': veiculo, 
+            {'data': data, 'ano': ano, 'mes': mes, 'transacao': transacao, 'veiculo': veiculo,
              'receita': receita, 'descricao': descricao, 'nf': nf, 'quantidade': quantidade, 'valor': valor}
         )
 
 
-# Db_Register().add_to_db('data', 'ano', 'mes', 'transacao', 'veiculo',
-#                       'sug_receita', 'receita', 'descricao', 2345, 2, 123.43)
+# Class of Users
+class Db_Users():
+    def __init__(self):
+        pass
+
+    # User Register
+    def new_user(self, username=str, password=str, email=str):
+        # Generate password hash
+        pwd = password
+        pwd_bytes = pwd.encode('utf-8')
+
+        # Generate bcrypt salt
+        salt = bcrypt.gensalt()
+
+        # hash pwd
+        hash_pwd = bcrypt.hashpw(password=pwd_bytes, salt=salt)
+
+        # Insert User Register
+        users.insert_one(
+            {'username': username, 'password': hash_pwd, 'email': email}
+        )
+
+
+# >> create part
+# pwd = '3545'
+# b = pwd.encode('utf-8')
+# salt = bcrypt.gensalt()
+# hash = bcrypt.hashpw(password=b, salt=salt)
+
+# >> check part
+# pwd2 = '3545'
+# pwd_b = pwd2.encode('utf-8')
+# hash_result = bcrypt.checkpw(pwd_b, hash)
+
+# print(hash_result)
