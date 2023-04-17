@@ -63,3 +63,11 @@ body {
     font-size: 15px;
     font-weight: 500;
 }
+
+
+/* Styles User Register Page */
+
+.user-register-form {
+    max-width: 550px;
+    font-weight: 600;
+}

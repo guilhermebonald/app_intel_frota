@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-sm text-start user-register-form">
+    {{ form.csrf_token }}
+    <div class="mb-4">
+        <label class="form-label">Nome</label>
+        {{ form.nome }}
+    </div>
+    <div class="mb-4">
+        <label class="form-label">Sobrenome</label>
+        {{ form.sobrenome }}
+    </div>
+    <div class="mb-4">
+        <label class="form-label">Nome de Usúario</label>
+        {{ form.username }}
+    </div>
+    <div class="mb-4">
+        <label class="form-label">Senha</label>
+        {{ form.password }}
+    </div>
+    <div class="mb-4">
+        <label class="form-label">Insira novamente sua senha</label>
+        {{ form.repassword }}
+    </div>
+</div>
+
+
+{% endblock %}

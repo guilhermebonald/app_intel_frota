@@ -10,17 +10,17 @@ import os
 
 def create_app():
     csrf = CSRFProtect()
-    
+
     # Load SECRET_KEY to .env file.
     load_dotenv()
 
     # Start
     app = Flask(__name__)
     app.secret_key = os.getenv('SECRET_KEY')
-    
-    ''' 
+
+    '''
     To set this "csrf.init_app(app)" is necessary to add all the code inside
-    to this function "create_app()". 
+    to this function "create_app()".
     '''
     csrf.init_app(app)
 
@@ -146,12 +146,18 @@ def create_app():
     def receitas():
         data = mongo_connect.Db_Register().get_aditivo_data()
         return render_template("pages/receitas.html", items=data)
+    
 
-    # ? Main execute
+    # ! ==== AUTH RULES PAGE ====
+    @app.route("/user_register", methods=["GET", "POST"])
+    def user_register():
+        form = validations.AddUsers()
+        return render_template("pages/user_register.html", form=form)
+
+
+    # ! MAIN EXECUTE
     if __name__ == "__main__":
         app.run(debug=True)
 
-    
-    # ! ==== USERS RULES PAGE ====
 
 create_app()
