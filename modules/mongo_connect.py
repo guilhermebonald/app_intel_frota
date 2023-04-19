@@ -98,7 +98,7 @@ class Db_Users():
         pass
 
     # User Register
-    def new_user(self, username=str, password=str, email=str):
+    def new_user(self, name=str, surname=str, username=str, password=str, email=str):
         # Generate password hash
         pwd = password
         pwd_bytes = pwd.encode('utf-8')
@@ -111,7 +111,7 @@ class Db_Users():
 
         # Insert User Register
         users.insert_one(
-            {'username': username, 'password': hash_pwd, 'email': email}
+            {'name': name, 'surname': surname, 'username': username, 'password': hash_pwd}
         )
 
 
