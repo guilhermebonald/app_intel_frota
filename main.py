@@ -156,12 +156,14 @@ def create_app():
             name = form.name.data
             surname = form.surname.data
             username = form.username.data
+            email = form.email.data
             password = form.password.data
 
             mongo_connect.Db_Users().new_user(
                 name=str(name),
                 surname=str(surname),
                 username=str(username),
+                email=str(email),
                 password=str(password),
             )
 

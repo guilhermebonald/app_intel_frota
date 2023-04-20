@@ -16,7 +16,7 @@ body {
     margin-top: 10px;
 }
 
-/* Styles Navbar */
+/* TODO> Styles Navbar */
 
 .main-navbar {
     font-size: 16px;
@@ -29,7 +29,7 @@ body {
     margin-bottom: 50px;
 }
 
-/* Styles Cars Page */
+/* TODO> Styles Cars Page */
 
 .my-table-header-cars {
     font-size: 16px;
@@ -41,7 +41,15 @@ body {
     font-weight: 500;
 }
 
-/* Styles Register Page */
+.edit-btn {
+    font-weight: 600;
+}
+
+.delete-btn {
+    font-weight: 600;
+}
+
+/* TODO> Styles Register Page */
 
 .my-table-header-register {
     font-size: 18px;
@@ -52,7 +60,11 @@ body {
     font-weight: 500;
 }
 
-/* Styles Receitas Page */
+.register-form-style {
+    font-weight: 600;
+}
+
+/* TODO> Styles Receitas Page */
 
 .my-table-header-receitas {
     font-size: 16px;
@@ -64,10 +76,21 @@ body {
     font-weight: 500;
 }
 
-
-/* Styles User Register Page */
+/* TODO> Styles User Register Page */
 
 .user-register-form {
     max-width: 550px;
     font-weight: 600;
+}
+
+.user-register-errors-container {
+    background-color: #8338ec;
+    border-bottom-left-radius: 15px;
+}
+
+.user-register-errors-container h5 {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    font-size: 18px;
 }

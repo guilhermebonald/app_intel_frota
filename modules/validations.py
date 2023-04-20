@@ -10,15 +10,34 @@ the attributes for class 'Form'"""
 
 db_cars = mongo_connect.Db_Cars()
 db_receitas = mongo_connect.Db_Register()
+db_users = mongo_connect.Db_Users()
 
 
-# Custom Validators
+# TODO>> CUSTOM VALIDATORS
+
 def frota_exist(form, field):
     frota = db_cars.get_data()
     for i in frota:
         if int(field.data) == int(i["frota"]):
-            raise validators.ValidationError("Veículo já cadastrado.")
+            raise validators.ValidationError("* Veículo já cadastrado")
+        
+# ? Users Data Validations        
+def email_exist(form, field):
+    users = db_users.get_data()
+    for user in users:
+        if str(user["email"]) == str(field.data):
+            raise validators.ValidationError("* Email já está cadastrado")
 
+def username_exist(form, field):
+    users = db_users.get_data()
+    for user in users:
+        if str(user["username"]) == str(field.data):
+            raise validators.ValidationError("* Nome de usúario já cadastrado")
+        
+
+
+
+# TODO>> FORMS
 
 # Add Validations
 class AddValidate(FlaskForm):
@@ -112,20 +131,29 @@ class AddUsers(FlaskForm):
     )
     username = StringField(
         "Username",
-        [validators.DataRequired()],
+        [validators.DataRequired(), username_exist],
         render_kw={
             "class": "form-control",
             "type": "text",
             "placeholder": "Insira seu nome de usúario",
         },
     )
+    email = StringField(
+        'Email',
+        [validators.DataRequired(), validators.Email(message='* Email inválido'), email_exist],
+        render_kw={
+            "class": "form-control",
+            "type": "email",
+            "placeholder": "Insira seu email",
+        }
+    )
     password = StringField(
         "Password",
-        [validators.DataRequired(), validators.EqualTo('repassword', message='Senhas divergentes')],
+        [validators.DataRequired(), validators.EqualTo('repassword', message='* As senhas precisam ser iguais')],
         render_kw={
             "class": "form-control",
             "type": "password",
-            "placeholder": "Insira seu senha",
+            "placeholder": "Insira sua senha",
         },
     )
     repassword = StringField(
