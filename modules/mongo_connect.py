@@ -56,7 +56,7 @@ class Db_Cars:
         car.delete_one({"_id": ObjectId(id)})
 
 
-# Class of Register
+# Class of Register Main
 class Db_Register:
     def __init__(self):
         pass
@@ -68,15 +68,8 @@ class Db_Register:
             data.append(i)
         return data
 
-    # * Function to get ADITIVO data from MongoDB. Return [{}]
-    def get_aditivo_data(self):
-        data = []
-        for i in aditivo.find():
-            data.append(i)
-        return data
-
     # * Function to add data to Register DB
-    def add_to_db(
+    def add_main(
         self,
         data=str,
         ano=str,
@@ -106,11 +99,30 @@ class Db_Register:
         )
 
 
+# Class of Register Revenues
+class Db_Revenue:
+    def __init__(self):
+        pass
+
+    # * Function to get ADITIVO revenue data from MongoDB. Return [{}]
+    def get_revenue_data(self):
+        data = []
+        for i in aditivo.find():
+            data.append(i)
+        return data
+
+    # * Function to add ADITIVO Data
+    def add_revenue(self, rota=str, placa=str, motorista=str, monitor=str):
+        aditivo.insert_one(
+            {"rota": rota, "placa": placa, "motorista": motorista, "monitor": monitor}
+        )
+
+
 # Class of Users
 class Db_Users:
     def __init__(self):
         pass
-    
+
     # Get Users Data
     def get_data(self):
         data = []

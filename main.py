@@ -30,7 +30,7 @@ def create_app():
         form = validations.AddRegister()
         # return list with data from DataBase
         data = mongo_connect.Db_Register().get_main_data()
-        return render_template("pages/registro.html", items=data, form=form)
+        return render_template("pages/home_register.html", items=data, form=form)
 
     # * ADD Register Function
     @app.route("/add_register", methods=["POST"])
@@ -43,12 +43,12 @@ def create_app():
             ano = form.ano.data
             mes = form.mes.data.upper()
             transacao = form.transacao.data.upper()
-            veiculo = form.veiculos.data
+            veiculo = form.cars.data
             receita = form.receitas.data
 
             # Access function and add to DB
             add = mongo_connect.Db_Register()
-            add.add_to_db(
+            add.add_main(
                 data=str(data),
                 ano=str(ano),
                 mes=str(mes),
@@ -69,16 +69,16 @@ def create_app():
 
     # ! ==== VEHICLE RULES PAGE ====
     @app.route("/veiculos")
-    def veiculos():
+    def cars():
         form = validations.AddValidate()
         # return list with data from DataBase
         data = mongo_connect.Db_Cars().get_data()
-        return render_template("pages/veiculos.html", items=data, form=form)
+        return render_template("pages/cars.html", items=data, form=form)
 
     # POST to add item in list
     # * ADD Car Function
     @app.route("/add_car", methods=["POST"])
-    def add_item():
+    def add_car():
         # class "Form" receive "formdata(dict)=request.form(dict)"
         form = validations.AddValidate()
         # get input from form with name.
@@ -94,14 +94,14 @@ def create_app():
             add.add_to_db(frota=int(frota), placa=str(plate))
 
             # returning to "home_page" after to add itens in table with the list.
-            return redirect(url_for("veiculos"))
+            return redirect(url_for("cars"))
         else:
-            return redirect(url_for("veiculos"))
+            return redirect(url_for("cars"))
 
     # POST to update item in list / GET to access update page.
     # * UPDATE Car Function
     @app.route("/edit_car/<id>", methods=["GET", "POST"])
-    def update(id):
+    def update_car(id):
         # Get specific car data.
         item_by_id = mongo_connect.Db_Cars().get_by_id(str(id))
         form = validations.AddValidate()
@@ -126,26 +126,27 @@ def create_app():
             )
 
             # Redirect to page
-            return redirect(url_for("veiculos"))
+            return redirect(url_for("cars"))
 
         # 1° - This is accessed from home page
         elif request.method == "GET":
             # Return to update form
             return render_template(
-                "elements_pages/update.html", form=form, item=item_by_id
+                "elements_pages/update_car.html", form=form, item=item_by_id
             )
 
     # * DELETE Car Function
     @app.route("/delete_car/<id>", methods=["GET", "POST"])
-    def delete(id):
+    def delete_car(id):
         mongo_connect.Db_Cars().delete_data(id)
-        return redirect(url_for("veiculos"))
+        return redirect(url_for("cars"))
 
-    # ! ==== RECEITAS RULES PAGE ====
+    # ! ==== REVENUE RULES PAGE ====
     @app.route("/receitas")
-    def receitas():
-        data = mongo_connect.Db_Register().get_aditivo_data()
-        return render_template("pages/receitas.html", items=data)
+    def revenues():
+        data = mongo_connect.Db_Revenue().get_revenue_data()
+        form = validations.AddRevenue()
+        return render_template("pages/revenues.html", items=data, form=form)
 
     # ! ==== AUTH RULES PAGE ====
     @app.route("/user_register", methods=["GET", "POST"])

@@ -26,17 +26,6 @@
     </table>
 </div>
 
-{% endblock %}
+{% include 'elements_forms/revenue_form.html' %}
 
-<!-- <td>
-                    <form action="{{ url_for('update', id=i._id) }}">
-                        {{ form.csrf_token }}
-                        {{ form.edit_btn(class_="btn btn-info btn-sm") }}
-                    </form>
-                </td>
-                <td>
-                    <form action="{{ url_for('delete', id=i._id) }}">
-                        {{ form.csrf_token }}
-                        {{ form.delete_btn(class_="btn btn-danger btn-sm") }}
-                    </form>
-                </td> -->
+{% endblock %}
