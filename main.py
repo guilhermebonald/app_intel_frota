@@ -30,7 +30,7 @@ def create_app():
         form = validations.AddRegister()
         # return list with data from DataBase
         data = mongo_connect.Db_Register().get_main_data()
-        return render_template("pages/home_register.html", items=data, form=form)
+        return render_template("pages/register/home_register.html", items=data, form=form)
 
     # * ADD Register Function
     @app.route("/add_register", methods=["POST"])
@@ -73,7 +73,7 @@ def create_app():
         form = validations.AddValidate()
         # return list with data from DataBase
         data = mongo_connect.Db_Cars().get_data()
-        return render_template("pages/cars.html", items=data, form=form)
+        return render_template("pages/cars/cars.html", items=data, form=form)
 
     # POST to add item in list
     # * ADD Car Function
@@ -132,7 +132,7 @@ def create_app():
         elif request.method == "GET":
             # Return to update form
             return render_template(
-                "elements_pages/update_car.html", form=form, item=item_by_id
+                "pages/cars/update_car.html", form=form, item=item_by_id
             )
 
     # * DELETE Car Function
@@ -146,7 +146,7 @@ def create_app():
     def revenues():
         data = mongo_connect.Db_Revenue().get_revenue_data()
         form = validations.AddRevenue()
-        return render_template("pages/revenues.html", items=data, form=form)
+        return render_template("pages/revenues/revenues.html", items=data, form=form)
 
     # ! ==== AUTH RULES PAGE ====
     @app.route("/user_register", methods=["GET", "POST"])
@@ -157,7 +157,7 @@ def create_app():
             name = form.name.data
             surname = form.surname.data
             username = form.username.data
-            email = form.email.data
+            email = form.email.datadas
             password = form.password.data
 
             mongo_connect.Db_Users().new_user(
@@ -170,7 +170,7 @@ def create_app():
 
             return redirect(url_for("home_page"))
 
-        return render_template("pages/user_register.html", form=form)
+        return render_template("pages/user/user_register.html", form=form)
 
     # ! MAIN EXECUTE
     if __name__ == "__main__":
