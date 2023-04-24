@@ -1,0 +1,17 @@
+<!-- Nav tabs -->
+<div class="bg-navbar">
+  <ul class="nav nav-pills justify-content-center main-navbar">
+    <li class="nav-item">
+      <a class="nav-link {% if request.path == url_for('home_page') %}active{% endif %}" aria-current="page"
+        href="{{url_for('home_page')}}">Registro</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if request.path == url_for('cars') %}active{% endif %}"
+        href="{{url_for('cars')}}">Veículos</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if request.path == url_for('revenues') %}active{% endif %}"
+        href="{{url_for('revenues')}}">Receitas</a>
+    </li>
+  </ul>
+</div>

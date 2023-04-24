@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-sm text-start user-register-form">
+    <form method="POST" action="{{ url_for('user_register') }}">
+        {{ form.csrf_token }}
+
+        <!-- Error Spot -->
+        {% for error in form.password.errors %}
+        <div class="container mb-1 text-end user-register-errors-container">
+            <h5>{{ error }}</h5>
+        </div>
+        {% endfor %}
+
+        {% for error in form.email.errors %}
+        <div class="container mb-1 text-end user-register-errors-container">
+            <h5>{{ error }}</h5>
+        </div>
+        {% endfor %}
+
+        {% for error in form.username.errors %}
+        <div class="container mb-1 text-end user-register-errors-container">
+            <h5>{{ error }}</h5>
+        </div>
+        {% endfor %}
+
+        <!-- Forms -->
+        <div class="mb-4 mt-4">
+            <label class="form-label">Nome</label>
+            {{ form.name }}
+        </div>
+        <div class="mb-4">
+            <label class="form-label">Sobrenome</label>
+            {{ form.surname }}
+        </div>
+        <div class="mb-4">
+            <label class="form-label">Nome de Usúario</label>
+            {{ form.username }}
+        </div>
+        <div class="mb-4">
+            <label class="form-label">Email</label>
+            {{ form.email }}
+        </div>
+        <div class="mb-4">
+            <label class="form-label">Senha</label>
+            {{ form.password }}
+        </div>
+        <div class="mb-5">
+            <label class="form-label">Insira novamente sua senha</label>
+            {{ form.repassword }}
+        </div>
+        <div class="text-center">
+            {{ form.register_btn(class_="btn btn-success") }}
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Table -->
+<div class="container">
+    <table id="myTable" class="table text-center table-bordered table-dark table-striped">
+        <thead>
+            <tr class="table-primary my-table-header-cars">
+                <th scope="col">Frota</th>
+                <th scope="col">Placa</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider text-center my-table-body-cars">
+            <!-- Row (tr) with collumn (td) -->
+            {% for i in items %}
+            <tr>
+                <td>{{ i.frota }}</td>
+                <td>{{ i.placa }}</td>
+                <td>
+                    <form action="{{ url_for('update_car', id=i._id) }}">
+                        {{ form.csrf_token }}
+                        {{ form.edit_btn(class_="btn btn-info btn-sm edit-btn") }}
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ url_for('delete_car', id=i._id) }}">
+                        {{ form.csrf_token }}
+                        {{ form.delete_btn(class_="btn btn-danger btn-sm delete-btn") }}
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Form -->
+{% include 'pages/cars/add_cars_form.html' %}
+
+{% endblock %}

@@ -1,0 +1,27 @@
+<table class="container text-center table table-dark t-form">
+    <form method="POST" action="{{ url_for('add_register') }}">
+        {{ form.csrf_token }}
+        <thead>
+            <tr>
+                <th scope="col">Data</th>
+                <th scope="col">Ano</th>
+                <th scope="col">Mês</th>
+                <th scope="col">Transação</th>
+                <th scope="col">Veiculo</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- tr(Row) / td(Collumn) -->
+            <tr>
+                <td>{{ form.data(class_='register-form-style') }}</td>
+                <td>{{ form.year(class_='form-control form-control-sm text-center register-form-style') }}</td>
+                <td>{{ form.mounth(class_='btn btn-warning dropdown-toggle text-center register-form-style') }}</td>
+                <td>{{ form.transaction(class_='btn btn-info dropdown-toggle text-center register-form-style') }}</td>
+                <td>{{ form.cars(class_='btn btn-primary dropdown-toggle text-center register-form-style') }}</td>
+                <td>{{ form.revenues(class_='btn btn-primary dropdown-toggle text-center register-form-style') }}</td>
+                <td>{{ form.add_btn(class_='btn btn-success register-form-style') }}</td>
+            </tr>
+        </tbody>
+    </form>
+</table>
