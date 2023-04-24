@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from modules import mongo_connect, validations
 from flask_wtf.csrf import CSRFProtect
 from dotenv import load_dotenv
+from flask_login import LoginManager
 import os
 
 
@@ -10,6 +11,7 @@ import os
 
 def create_app():
     csrf = CSRFProtect()
+    login_manager = LoginManager()
 
     # Load SECRET_KEY to .env file.
     load_dotenv()
@@ -23,6 +25,7 @@ def create_app():
     to this function "create_app()".
     """
     csrf.init_app(app)
+    # login_manager.init_app(app)
 
     # ! ==== REGISTER RULES PAGE ====
     @app.route("/")
@@ -30,7 +33,9 @@ def create_app():
         form = validations.AddRegister()
         # return list with data from DataBase
         data = mongo_connect.Db_Register().get_main_data()
-        return render_template("pages/register/home_register.html", items=data, form=form)
+        return render_template(
+            "pages/register/home_register.html", items=data, form=form
+        )
 
     # * ADD Register Function
     @app.route("/add_register", methods=["POST"])
