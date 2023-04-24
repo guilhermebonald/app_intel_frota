@@ -43,7 +43,7 @@ def username_exist(form, field):
 
 
 # TODO>> Add Validations
-class AddValidate(FlaskForm):
+class AddCars(FlaskForm):
     frota = StringField(
         "Frota",
         [

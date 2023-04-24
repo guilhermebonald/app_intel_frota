@@ -70,7 +70,7 @@ def create_app():
     # ! ==== VEHICLE RULES PAGE ====
     @app.route("/veiculos")
     def cars():
-        form = validations.AddValidate()
+        form = validations.AddCars()
         # return list with data from DataBase
         data = mongo_connect.Db_Cars().get_data()
         return render_template("pages/cars/cars.html", items=data, form=form)
@@ -80,7 +80,7 @@ def create_app():
     @app.route("/add_car", methods=["POST"])
     def add_car():
         # class "Form" receive "formdata(dict)=request.form(dict)"
-        form = validations.AddValidate()
+        form = validations.AddCars()
         # get input from form with name.
         # IF HTTP = POST
         if request.method == "POST" and form.validate_on_submit():
@@ -104,7 +104,7 @@ def create_app():
     def update_car(id):
         # Get specific car data.
         item_by_id = mongo_connect.Db_Cars().get_by_id(str(id))
-        form = validations.AddValidate()
+        form = validations.AddCars()
 
         # 2° - This is accessed from update page
         if request.method == "POST":
