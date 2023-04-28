@@ -11,7 +11,6 @@ import os
 
 def create_app():
     csrf = CSRFProtect()
-    login_manager = LoginManager()
 
     # Load SECRET_KEY to .env file.
     load_dotenv()
@@ -25,7 +24,7 @@ def create_app():
     to this function "create_app()".
     """
     csrf.init_app(app)
-    # login_manager.init_app(app)
+
 
     # ! ==== REGISTER RULES PAGE ====
     @app.route("/")
