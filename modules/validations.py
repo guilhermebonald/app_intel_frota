@@ -8,9 +8,9 @@ is a subclass of "Form", so 'add_validate' inherits (herda)
 the attributes for class 'Form'"""
 
 
-db_cars = mongo_connect.Db_Cars()
+db_cars = mongo_connect.CarTools()
 db_receitas = mongo_connect.Db_Register()
-db_revenue = mongo_connect.Db_Revenue()
+db_revenue = mongo_connect.RevenueTools()
 db_users = mongo_connect.Db_Users()
 
 
@@ -18,7 +18,7 @@ db_users = mongo_connect.Db_Users()
 
 
 def frota_exist(form, field):
-    frota = db_cars.get_data()
+    frota = db_cars.get_all()
     for i in frota:
         if int(field.data) == int(i["frota"]):
             raise validators.ValidationError("* Veículo já cadastrado")
@@ -98,14 +98,14 @@ class AddRegister(FlaskForm):
     # Vehicle Form
     cars = SelectField(
         [validators.DataRequired()],
-        choices=[i["placa"] for i in db_cars.get_data()],
+        choices=[i["placa"] for i in db_cars.get_all()],
         id="veiculos",
     )
 
     # Sg Receitas
     revenues = SelectField(
         [validators.DataRequired()],
-        choices=[i["rota"] for i in db_revenue.get_revenue_data()],
+        choices=[i["rota"] for i in db_revenue.get_all()],
         id="receitas",
     )
 

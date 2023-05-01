@@ -5,38 +5,74 @@ import bcrypt
 
 # ! With mongoengine
 
-me.connect(db="frota", host="mongodb://localhost:27017/")
+me.connect(alias='frota-alias', db="frota", host="mongodb://localhost:27017/")
+me.connect(alias='registro-alias', db="registro", host="mongodb://localhost:27017/")
 
+
+# TODO>> Car Modules
 class Cars(me.DynamicDocument):
     frota = me.IntField(required=True)
     placa = me.StringField(required=True)
-    meta = {'collection': 'carros'}
+    meta = {
+        "db_alias": "frota-alias",
+        "collection": "carros"
+        }
 
-class CarTools():
+
+class CarTools:
     def __init__(self):
         pass
 
     def get_all(self):
         data = []
         for cars in Cars.objects():
-            data.append({'id': cars.id, 'frota': cars.frota, 'placa': cars.placa})
+            data.append({"id": cars.id, "frota": cars.frota, "placa": cars.placa})
         return data
-    
+
     def get_by_id(self, id):
         for i in Cars.objects(_id=ObjectId(id)):
-            car = {'id': i.id, 'frota': i.frota, 'placa': i.placa}
+            car = {"id": i.id, "frota": i.frota, "placa": i.placa}
         return car
 
     def add_car(self, frota, placa):
         car = Cars(frota=frota, placa=placa)
         car.save()
-    
+
     def update_car(self, id, frota, placa):
         Cars.objects(_id=ObjectId(id)).update(set__frota=frota, set__placa=placa)
 
     def delete_car(self, id):
-       Cars.objects(_id=ObjectId(id)).delete()
+        Cars.objects(_id=ObjectId(id)).delete()
 
+
+# TODO>> Revenue Modules
+class Revenues(me.DynamicDocument):
+    rota = me.StringField(required=True)
+    placa = me.StringField(required=True)
+    motorista = me.StringField(required=True)
+    monitor = me.StringField(required=True)
+    meta = {
+        "db_alias": "registro-alias",
+        "collection": "aditivo"
+        }
+
+
+class RevenueTools:
+    def __init__(self):
+        pass
+
+    def get_all(self):
+        data = []
+        for revenues in Revenues.objects():
+            data.append(
+                {
+                    "rota": revenues.rota,
+                    "placa": revenues.placa,
+                    "motorista": revenues.motorista,
+                    "monitor": revenues.monitor,
+                }
+            )
+        return data
 
 
 # ! With Pymongo
@@ -44,10 +80,6 @@ class CarTools():
 uri = "mongodb://localhost:27017/"
 
 client = MongoClient(uri)
-
-# Car DB Instance
-db_car = client["frota"]
-car = db_car["carros"]
 
 # Register DB Instance
 db_register = client["registro"]
@@ -57,42 +89,6 @@ aditivo = db_register["aditivo"]
 # Users DB Instance
 db_users = client["usuarios"]
 users = db_users["data"]
-
-
-# Class of cars
-class Db_Cars:
-    def __init__(self):
-        pass
-
-    # * Function to get data fro MongoDB. Return [{}]
-    def get_data(self):
-        data = []
-        for i in car.find():
-            data.append(i)
-        return data
-
-    # * Function to get unique but complete data by ID. Return {}
-    def get_by_id(self, id=str):
-        return car.find_one({"_id": id})
-
-    # * Function to add data in DB.
-    def add_to_db(self, frota=int, placa=str):
-        car.insert_one({"frota": frota, "placa": placa})
-
-    # * Function to update data in DB.
-    def update_data(self, old_frota=int, new_frota=int, old_plate=str, new_plate=str):
-        # Frota Value Update
-        car.update_one({"frota": old_frota}, {"$set": {"frota": new_frota}})
-
-        # Placa Value Update
-        car.update_one(
-            {"placa": old_plate},
-            {"$set": {"placa": new_plate}},
-        )
-
-    # * Function to delete data from DB.
-    def delete_data(self, id=str):
-        car.delete_one({"_id": ObjectId(id)})
 
 
 # Class of Register Main
@@ -137,24 +133,6 @@ class Db_Register:
             }
         )
 
-
-# Class of Register Revenues
-class Db_Revenue:
-    def __init__(self):
-        pass
-
-    # * Function to get ADITIVO revenue data from MongoDB. Return [{}]
-    def get_revenue_data(self):
-        data = []
-        for i in aditivo.find():
-            data.append(i)
-        return data
-
-    # * Function to add ADITIVO Data
-    def add_revenue(self, rota=str, placa=str, motorista=str, monitor=str):
-        aditivo.insert_one(
-            {"rota": rota, "placa": placa, "motorista": motorista, "monitor": monitor}
-        )
 
 
 # Class of Users
