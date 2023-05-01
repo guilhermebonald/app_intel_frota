@@ -19,13 +19,13 @@
                 <td>{{ i.frota }}</td>
                 <td>{{ i.placa }}</td>
                 <td>
-                    <form action="{{ url_for('update_car', id=i._id) }}">
+                    <form action="{{ url_for('update_car', id=i.id) }}">
                         {{ form.csrf_token }}
                         {{ form.edit_btn(class_="btn btn-info btn-sm edit-btn") }}
                     </form>
                 </td>
                 <td>
-                    <form action="{{ url_for('delete_car', id=i._id) }}">
+                    <form action="{{ url_for('delete_car', id=i.id) }}">
                         {{ form.csrf_token }}
                         {{ form.delete_btn(class_="btn btn-danger btn-sm delete-btn") }}
                     </form>

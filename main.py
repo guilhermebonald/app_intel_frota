@@ -25,7 +25,6 @@ def create_app():
     """
     csrf.init_app(app)
 
-
     # ! ==== REGISTER RULES PAGE ====
     @app.route("/")
     def home_page():
@@ -76,7 +75,7 @@ def create_app():
     def cars():
         form = validations.AddCars()
         # return list with data from DataBase
-        data = mongo_connect.Db_Cars().get_data()
+        data = mongo_connect.CarTools().get_all()
         return render_template("pages/cars/cars.html", items=data, form=form)
 
     # POST to add item in list
@@ -106,8 +105,7 @@ def create_app():
     # * UPDATE Car Function
     @app.route("/edit_car/<id>", methods=["GET", "POST"])
     def update_car(id):
-        # Get specific car data.
-        item_by_id = mongo_connect.Db_Cars().get_by_id(str(id))
+        item_by_id = mongo_connect.CarTools().get_by_id(id)
         form = validations.AddCars()
 
         # 2° - This is accessed from update page
@@ -116,17 +114,12 @@ def create_app():
             form_frota = form.frota.data
             form_plate = form.plate.data.upper()
 
-            # get old data.
-            old_frota = item_by_id["frota"]
-            old_plate = item_by_id["placa"]
-
-            # get new data
-            new_frota = int(form_frota)
-            new_plate = form_plate
+            # get id
+            u_id = item_by_id['id']
 
             # Set update in DB
-            mongo_connect.Db_Cars().update_data(
-                old_frota, new_frota, old_plate, new_plate
+            mongo_connect.CarTools().update_car(
+                id=u_id, frota=int(form_frota), placa=form_plate
             )
 
             # Redirect to page
@@ -142,7 +135,7 @@ def create_app():
     # * DELETE Car Function
     @app.route("/delete_car/<id>", methods=["GET", "POST"])
     def delete_car(id):
-        mongo_connect.Db_Cars().delete_data(id)
+        mongo_connect.CarTools().delete_car(id)
         return redirect(url_for("cars"))
 
     # ! ==== REVENUE RULES PAGE ====

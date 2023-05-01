@@ -1,6 +1,45 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import mongoengine as me
 import bcrypt
+
+# ! With mongoengine
+
+me.connect(db="frota", host="mongodb://localhost:27017/")
+
+class Cars(me.DynamicDocument):
+    frota = me.IntField(required=True)
+    placa = me.StringField(required=True)
+    meta = {'collection': 'carros'}
+
+class CarTools():
+    def __init__(self):
+        pass
+
+    def get_all(self):
+        data = []
+        for cars in Cars.objects():
+            data.append({'id': cars.id, 'frota': cars.frota, 'placa': cars.placa})
+        return data
+    
+    def get_by_id(self, id):
+        for i in Cars.objects(_id=ObjectId(id)):
+            car = {'id': i.id, 'frota': i.frota, 'placa': i.placa}
+        return car
+
+    def add_car(self, frota, placa):
+        car = Cars(frota=frota, placa=placa)
+        car.save()
+    
+    def update_car(self, id, frota, placa):
+        Cars.objects(_id=ObjectId(id)).update(set__frota=frota, set__placa=placa)
+
+    def delete_car(self, id):
+       Cars.objects(_id=ObjectId(id)).delete()
+
+
+
+# ! With Pymongo
 
 uri = "mongodb://localhost:27017/"
 
@@ -34,7 +73,7 @@ class Db_Cars:
 
     # * Function to get unique but complete data by ID. Return {}
     def get_by_id(self, id=str):
-        return car.find_one({"_id": ObjectId(id)})
+        return car.find_one({"_id": id})
 
     # * Function to add data in DB.
     def add_to_db(self, frota=int, placa=str):
