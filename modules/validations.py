@@ -9,7 +9,7 @@ the attributes for class 'Form'"""
 
 
 db_cars = mongo_connect.CarTools()
-db_receitas = mongo_connect.Db_Register()
+db_receitas = mongo_connect.RegisterTools()
 db_revenue = mongo_connect.RevenueTools()
 db_users = mongo_connect.Db_Users()
 

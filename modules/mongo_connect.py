@@ -5,18 +5,15 @@ import bcrypt
 
 # ! With mongoengine
 
-me.connect(alias='frota-alias', db="frota", host="mongodb://localhost:27017/")
-me.connect(alias='registro-alias', db="registro", host="mongodb://localhost:27017/")
+me.connect(alias="frota-alias", db="frota", host="mongodb://localhost:27017/")
+me.connect(alias="registro-alias", db="registro", host="mongodb://localhost:27017/")
 
 
 # TODO>> Car Modules
 class Cars(me.DynamicDocument):
     frota = me.IntField(required=True)
     placa = me.StringField(required=True)
-    meta = {
-        "db_alias": "frota-alias",
-        "collection": "carros"
-        }
+    meta = {"db_alias": "frota-alias", "collection": "carros"}
 
 
 class CarTools:
@@ -51,10 +48,7 @@ class Revenues(me.DynamicDocument):
     placa = me.StringField(required=True)
     motorista = me.StringField(required=True)
     monitor = me.StringField(required=True)
-    meta = {
-        "db_alias": "registro-alias",
-        "collection": "aditivo"
-        }
+    meta = {"db_alias": "registro-alias", "collection": "aditivo"}
 
 
 class RevenueTools:
@@ -75,6 +69,75 @@ class RevenueTools:
         return data
 
 
+# TODO>> Register Modules
+class Register(me.DynamicDocument):
+    data = me.StringField(required=True)
+    ano = me.StringField(required=True)
+    mes = me.StringField(required=True)
+    transacao = me.StringField(required=True)
+    veiculo = me.StringField(required=True)
+    sg_receita = me.StringField(required=True)
+    receita = me.StringField(required=True)
+    descricao = me.StringField(required=True)
+    nf = me.IntField(required=True)
+    quantidade = me.IntField(required=True)
+    valor = me.FloatField(required=True)
+    meta = {"db_alias": "registro-alias", "collection": "main"}
+
+
+class RegisterTools:
+    def __init__(self):
+        pass
+
+    def get_all(self):
+        data = []
+        for i in Register.objects():
+            data.append(
+                {
+                    "data": i.data,
+                    "ano": i.ano,
+                    "mes": i.mes,
+                    "transacao": i.transacao,
+                    "veiculo": i.veiculo,
+                    "receita": i.receita,
+                    "descricao": i.descricao,
+                    "nf": i.nf,
+                    "quantidade": i.quantidade,
+                    "valor": i.valor,
+                }
+            )
+        return data
+
+    def add_register(
+        self,
+        data,
+        ano,
+        mes,
+        transacao,
+        veiculo,
+        sg_receita,
+        receita,
+        descricao,
+        nf,
+        quantidade,
+        valor,
+    ):
+        register = Register(
+            data=data,
+            ano=ano,
+            mes=mes,
+            transacao=transacao,
+            veiculo=veiculo,
+            sg_receita=sg_receita,
+            receita=receita,
+            descricao=descricao,
+            nf=nf,
+            quantidade=quantidade,
+            valor=valor,
+        )
+        register.save()
+
+
 # ! With Pymongo
 
 uri = "mongodb://localhost:27017/"
@@ -89,50 +152,6 @@ aditivo = db_register["aditivo"]
 # Users DB Instance
 db_users = client["usuarios"]
 users = db_users["data"]
-
-
-# Class of Register Main
-class Db_Register:
-    def __init__(self):
-        pass
-
-    # * Function to get MAIN data from MongoDB. Return [{}]
-    def get_main_data(self):
-        data = []
-        for i in register.find():
-            data.append(i)
-        return data
-
-    # * Function to add data to Register DB
-    def add_main(
-        self,
-        data=str,
-        ano=str,
-        mes=str,
-        transacao=str,
-        veiculo=str,
-        sg_receita=str,
-        receita=str,
-        descricao=str,
-        nf=int,
-        quantidade=int,
-        valor=float,
-    ):
-        register.insert_one(
-            {
-                "data": data,
-                "ano": ano,
-                "mes": mes,
-                "transacao": transacao,
-                "veiculo": veiculo,
-                "receita": receita,
-                "descricao": descricao,
-                "nf": nf,
-                "quantidade": quantidade,
-                "valor": valor,
-            }
-        )
-
 
 
 # Class of Users
