@@ -1,5 +1,5 @@
 <table class="container text-center table table-dark t-form mt-2 mb-5 my-add-frota-form">
-    <form method="POST" action="{{ url_for('add_car') }}">
+    <form method="POST" id="car-form">
         {{ form.csrf_token }}
         <thead>
             <tr>
@@ -14,7 +14,8 @@
             <tr>
                 <td>{{ form.frota(class='form-control text-center') }}</td>
                 <td>{{ form.plate(class='form-control text-center') }}</td>
-                <td>{{ form.add_btn(class_='btn btn-success btn') }}</td>
+                <!-- <td>{{ form.add_btn(class_='btn btn-success btn') }}</td> -->
+                <td><button class="btn btn-success" type="submit">Adicionar</button></td>
             </tr>
         </tbody>
     </form>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from modules import mongo_connect, validations
 from flask_wtf.csrf import CSRFProtect
 from dotenv import load_dotenv
@@ -30,7 +30,7 @@ def create_app():
     def home_page():
         form = validations.AddRegister()
         # return list with data from DataBase
-        data = mongo_connect.Db_Register().get_main_data()
+        data = mongo_connect.RegisterTools().get_all()
         return render_template(
             "pages/register/home_register.html", items=data, form=form
         )
@@ -93,13 +93,12 @@ def create_app():
                 plate = plate[:3] + "-" + plate[3:]
 
             # append data from input in list.
-            add = mongo_connect.Db_Cars()
-            add.add_to_db(frota=int(frota), placa=str(plate))
+            mongo_connect.CarTools().add_car(frota=frota, placa=plate)
 
             # returning to "home_page" after to add itens in table with the list.
-            return redirect(url_for("cars"))
+            return jsonify({"status": "Success"})
         else:
-            return redirect(url_for("cars"))
+            return jsonify({"status": "Failed"})
 
     # POST to update item in list / GET to access update page.
     # * UPDATE Car Function
@@ -113,9 +112,11 @@ def create_app():
             # Get Form Data.
             form_frota = form.frota.data
             form_plate = form.plate.data.upper()
+            if len(form_plate) == 7:
+                form_plate = form_plate[:3] + "-" + form_plate[3:]
 
             # get id
-            u_id = item_by_id['id']
+            u_id = item_by_id["id"]
 
             # Set update in DB
             mongo_connect.CarTools().update_car(
@@ -141,7 +142,7 @@ def create_app():
     # ! ==== REVENUE RULES PAGE ====
     @app.route("/receitas")
     def revenues():
-        data = mongo_connect.Db_Revenue().get_revenue_data()
+        data = mongo_connect.RevenueTools().get_all()
         form = validations.AddRevenue()
         return render_template("pages/revenues/revenues.html", items=data, form=form)
 
