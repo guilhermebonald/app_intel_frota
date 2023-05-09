@@ -5,13 +5,15 @@ form.addEventListener('submit', (event) => {
     event.preventDefault();
 
     const formData = new FormData(form);
+    formData.append('csrf_token', '{{ form.csrf_token._value() }}');
 
-    fetch('/add_car',
-        {
-            method: 'POST',
-            body: formData
-        })
+    const options = {
+        method: 'POST',
+        body: formData
+    }
+
+    fetch('/add_car', options)
         .then(response => response.json())
-        .then(data => { console.log(data) })
+        .then(data => console.log(data))
         .catch(error => console.error(error))
 })
