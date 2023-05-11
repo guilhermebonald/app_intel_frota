@@ -4,6 +4,7 @@ from flask_wtf.csrf import CSRFProtect
 from dotenv import load_dotenv
 from flask_login import LoginManager
 import os
+from bson import json_util
 
 
 # * The Initial Function.
@@ -94,9 +95,10 @@ def create_app():
 
             # append data from input in list.
             mongo_connect.CarTools().add_car(frota=frota, placa=plate)
+            cars = mongo_connect.CarTools().get_all()
 
             # returning to "home_page" after to add itens in table with the list.
-            return jsonify({"status": "Success"})
+            return json_util.dumps(cars)
         else:
             return jsonify({"status": "Failed"})
 

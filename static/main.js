@@ -14,6 +14,29 @@ form.addEventListener('submit', (event) => {
 
     fetch('/add_car', options)
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+            const lastCarIndex = data.length - 1;
+            const lastCar = data[lastCarIndex];
+
+            const tbody = document.querySelector('.my-table-body-cars');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${lastCar.frota}</td>
+                <td>${lastCar.placa}</td>
+                <td>
+                    <form action="/update_car/${data.id}">
+                        <input type="hidden" name="csrf_token" value="{{ form.csrf_token._value() }}">
+                        <button class="btn btn-info btn-sm edit-btn">Editar</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/delete_car/${data.id}">
+                        <input type="hidden" name="csrf_token" value="{{ form.csrf_token._value() }}">
+                        <button class="btn btn-danger btn-sm delete-btn">Deletar</button>
+                    </form>
+                </td>
+            `;
+            tbody.appendChild(row)
+        })
         .catch(error => console.error(error))
 })
