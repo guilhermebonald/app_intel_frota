@@ -17,26 +17,28 @@ form.addEventListener('submit', (event) => {
         .then(data => {
             const lastCarIndex = data.length - 1;
             const lastCar = data[lastCarIndex];
+            const id = lastCar.id.$oid;
 
             const tbody = document.querySelector('.my-table-body-cars');
             const row = document.createElement('tr');
+
             row.innerHTML = `
                 <td>${lastCar.frota}</td>
                 <td>${lastCar.placa}</td>
                 <td>
-                    <form action="/update_car/${data.id}">
+                    <form action="/update_car/${id}">
                         <input type="hidden" name="csrf_token" value="{{ form.csrf_token._value() }}">
                         <button class="btn btn-info btn-sm edit-btn">Editar</button>
                     </form>
                 </td>
                 <td>
-                    <form action="/delete_car/${data.id}">
+                    <form action="/delete_car/${id}">
                         <input type="hidden" name="csrf_token" value="{{ form.csrf_token._value() }}">
                         <button class="btn btn-danger btn-sm delete-btn">Deletar</button>
                     </form>
                 </td>
             `;
-            tbody.appendChild(row)
+            tbody.appendChild(row);
         })
-        .catch(error => console.error(error))
+        .catch(error => console.error(error));
 })

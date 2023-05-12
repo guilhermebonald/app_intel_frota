@@ -138,6 +138,7 @@ def create_app():
     # * DELETE Car Function
     @app.route("/delete_car/<id>", methods=["GET", "POST"])
     def delete_car(id):
+        print(id)
         mongo_connect.CarTools().delete_car(id)
         return redirect(url_for("cars"))
 
