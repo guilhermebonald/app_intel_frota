@@ -9,6 +9,10 @@
                 <th scope="col">Transação</th>
                 <th scope="col">Veiculo</th>
                 <th scope="col"></th>
+                <th scope="col">Descrição</th>
+                <th scope="col">NF</th>
+                <th scope="col">Quantidade</th>
+                <th scope="col">Valor</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +24,10 @@
                 <td>{{ form.transaction(class_='btn btn-info dropdown-toggle text-center register-form-style') }}</td>
                 <td>{{ form.cars(class_='btn btn-primary dropdown-toggle text-center register-form-style') }}</td>
                 <td>{{ form.revenues(class_='btn btn-primary dropdown-toggle text-center register-form-style') }}</td>
+                <td>{{ form.description(class_='form-control form-control-sm text-center register-form-style') }}</td>
+                <td>{{ form.nf(class_='form-control form-control-sm text-center register-form-style') }}</td>
+                <td>{{ form.amount(class_='form-control form-control-sm text-center register-form-style') }}</td>
+                <td>{{ form.value(class_='form-control form-control-sm text-center register-form-style') }}</td>
                 <td>{{ form.add_btn(class_='btn btn-success register-form-style') }}</td>
             </tr>
         </tbody>

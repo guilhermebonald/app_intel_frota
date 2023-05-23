@@ -109,6 +109,20 @@ class AddRegister(FlaskForm):
         id="receitas",
     )
 
+    description = StringField("Descrição", [validators.DataRequired()])
+
+    nf = StringField(
+        "NF", [validators.DataRequired(message="Insira o número da Nota Fiscal")]
+    )
+
+    amount = StringField(
+        "Quantidade", [validators.DataRequired(message="Insira a quantidade")]
+    )
+
+    value = StringField(
+        "Valor", [validators.DataRequired(message="Digite o valor do produto")]
+    )
+
     add_btn = SubmitField("Adicionar")
 
 
