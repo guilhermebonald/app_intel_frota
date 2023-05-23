@@ -2,9 +2,8 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 import mongoengine as me
 import bcrypt
-from bson import json_util
 
-# ! With mongoengine
+# ! With mongoengine - ORM
 
 me.connect(alias="frota-alias", db="frota", host="mongodb://localhost:27017/")
 me.connect(alias="registro-alias", db="registro", host="mongodb://localhost:27017/")
@@ -18,9 +17,6 @@ class Cars(me.DynamicDocument):
 
 
 class CarTools:
-    def __init__(self):
-        pass
-
     def get_all(self):
         data = []
         for cars in Cars.objects():
@@ -87,9 +83,6 @@ class Register(me.DynamicDocument):
 
 
 class RegisterTools:
-    def __init__(self):
-        pass
-
     def get_all(self):
         data = []
         for i in Register.objects():
@@ -157,9 +150,6 @@ users = db_users["data"]
 
 # Class of Users
 class Db_Users:
-    def __init__(self):
-        pass
-
     # Get Users Data
     def get_data(self):
         data = []

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, session
 from modules import mongo_connect, validations
 from flask_wtf.csrf import CSRFProtect
 from dotenv import load_dotenv
@@ -79,7 +79,6 @@ def create_app():
         data = mongo_connect.CarTools().get_all()
         return render_template("pages/cars/cars.html", items=data, form=form)
 
-    # POST to add item in list
     # * ADD Car Function
     @app.route("/add_car", methods=["POST"])
     def add_car():
@@ -102,7 +101,6 @@ def create_app():
         else:
             return jsonify({"status": "Failed"})
 
-    # POST to update item in list / GET to access update page.
     # * UPDATE Car Function
     @app.route("/edit_car/<id>", methods=["GET", "POST"])
     def update_car(id):
@@ -142,6 +140,7 @@ def create_app():
         mongo_connect.CarTools().delete_car(id)
         return redirect(url_for("cars"))
 
+    
     # ! ==== REVENUE RULES PAGE ====
     @app.route("/receitas")
     def revenues():
